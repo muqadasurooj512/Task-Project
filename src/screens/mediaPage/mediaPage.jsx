@@ -1,114 +1,3 @@
-
-// import React from 'react';
-// import {
-//   StyleSheet,
-//   Text,
-//   View,
-//   StatusBar,
-//   TouchableOpacity,
-//   Image,
-//   ScrollView,
-//   SafeAreaView
-// } from 'react-native';
-// import Logo from '../../../assets/svg/LogoSvg.svg';
-// import Icon from 'react-native-vector-icons/FontAwesome5';
-// import { scale, verticalScale, moderateVerticalScale, moderateScale } from 'react-native-size-matters';
-
-// const MediaPage = () => {
-//   return (
-//     <SafeAreaView style={{ flex: 1 }}>
-//       <ScrollView contentContainerStyle={styles.container}>
-//         <StatusBar barStyle="dark-content" backgroundColor="red" />
-
-//         {/* Top Bar with Send Icon */}
-//         <View style={styles.topBar}>
-//           <Logo/>
-//           <View style={styles.tabContainer}>
-//             <Text style={styles.tabText}>For You</Text>
-//             <Text style={styles.tabText}>Following</Text>
-//           </View>
-//           <TouchableOpacity style={styles.sendIconContainer}>
-//             <Icon name="paper-plane" size={scale(20)} color="black" />
-//           </TouchableOpacity>
-//         </View>
-
-//         <View style={styles.content}>
-//           {/* Profile Image in a Circle */}
-//           <Image
-//             source={require('../../../assets/svg/image.png')}
-//             style={styles.profileImage}
-//           />
-
-//           {/* Action Icons */}
-//           <View style={styles.iconButtonsContainer}>
-//             <TouchableOpacity style={styles.iconButton}>
-//               <Icon name="arrow-up" size={scale(20)} color="black" />
-//             </TouchableOpacity>
-//             <TouchableOpacity style={styles.iconButton}>
-//               <Icon name="arrow-down" size={scale(20)} color="black" />
-//             </TouchableOpacity>
-//             <TouchableOpacity style={styles.iconButton}>
-//               <Icon name="comment" size={scale(20)} color="black" />
-//             </TouchableOpacity>
-//             <TouchableOpacity style={styles.iconButton}>
-//               <Icon name="retweet" size={scale(20)} color="black" />
-//             </TouchableOpacity>
-//             <TouchableOpacity style={styles.iconButton}>
-//               <Icon name="bookmark" size={scale(20)} color="black" />
-//             </TouchableOpacity>
-//             <TouchableOpacity style={styles.iconButton}>
-//               <Icon name="share-alt" size={scale(20)} color="black" />
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       </ScrollView>
-//     </SafeAreaView>
-//   );
-// };
-
-// export default MediaPage;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flexGrow: 1,
-//     backgroundColor: '#fff',
-//   },
-//   topBar: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     padding: moderateVerticalScale(18),
-//   },
-//   tabContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//   },
-//   tabText: {
-//     fontSize: scale(14),
-//     marginHorizontal: scale(8),
-//   },
-//   sendIconContainer: {
-//     padding: scale(8),
-//   },
-//   content: {
-//     flex: 1,
-//     alignItems: 'flex-end',
-//     marginEnd:moderateScale(15),
-//     marginTop: verticalScale(120),
-//   },
-//   profileImage: {
-//     width: scale(40),
-//     height: scale(40),
-//     borderRadius: scale(25),
-//     marginBottom: verticalScale(10),
-//   },
-//   iconButtonsContainer: {
-//     alignItems: 'center',
-//   },
-//   iconButton: {
-//     marginVertical: verticalScale(15),
-//   },
-// });
 import React from 'react';
 import {
   StyleSheet,
@@ -117,70 +6,142 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
-  ScrollView,
   SafeAreaView,
-  FlatList
+  FlatList,
+  Dimensions
 } from 'react-native';
-import Logo from '../../../assets/svg/LogoSvg.svg';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale, verticalScale, moderateVerticalScale, moderateScale } from 'react-native-size-matters';
+import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import LinearGradient from 'react-native-linear-gradient'; // Add this import for gradient
+import Logo from '../../../assets/svg/LogoSvg.svg';
+
+const { width, height } = Dimensions.get('window');
+
+const content = [
+  {
+    id: '1',
+    type: 'image',
+    userName: 'john_doe',
+    userId: '@johndoe123',
+    songName: 'Awesome Beats - DJ Mix',
+    image: require('../../../assets/svg/reel_image.png'),
+  },
+  {
+    id: '2',
+    type: 'text',
+    userName: 'jane_doe',
+    userId: '@janedoe456',
+    question: 'What’s your favorite way to relax after work?',
+    answers: [
+      'TV & Snacks',
+      'Card games with friends',
+      'Go on Social Media',
+      'Reading'
+    ],
+    songName: 'Chill Vibes - Relax Music',  // Static song name for question item
+  },
+];
 
 const MediaPage = () => {
-  const content = [
-    {
-      type: 'media',
-      image: require('../../../assets/svg/reel_image.png'),
-    },
-  ];
+  const renderItem = ({ item }) => (
+    <View style={styles.pageContainer}>
+      {item.type === 'image' ? (
+        <Image source={item.image} style={styles.reelBackground} />
+      ) : (
+        <View style={styles.textContainer}>
+          <LinearGradient
+            colors={['#000AFFB3', '#6F00FFB3', '#FF0000B3']} // Stronger gradient opacity
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.gradientBackground}
+          >
+            <Text style={styles.question}>{item.question}</Text>
+
+            {/* Displaying answers in separate boxes */}
+            <View style={styles.answersContainer}>
+              {item.answers.map((answer, index) => (
+                <TouchableOpacity key={index} style={styles.answerBox}>
+                  <Text style={styles.answer}>{answer}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </LinearGradient>
+        </View>
+      )}
+
+      {/* Overlay content for each item */}
+      <View style={styles.overlayContent}>
+        {/* Top Bar with Logo and Tabs */}
+        <View style={styles.topBar}>
+          <Logo />
+          <View style={styles.tabContainer}>
+            <Text style={styles.tabText}>For You</Text>
+            <Text style={styles.tabText}>Following</Text>
+          </View>
+          <TouchableOpacity style={styles.sendIconContainer}>
+            <Icon name="paper-plane" size={scale(20)} color="white" />
+          </TouchableOpacity>
+        </View>
+
+        {/* Profile Image and Icons */}
+        <View style={styles.iconButtonsContainer}>
+          <Image source={require('../../../assets/svg/image.png')} style={styles.profileImage} />
+          <TouchableOpacity style={styles.iconButton}>
+            <Icon name="arrow-up" size={scale(20)} color="white" />
+            <Text style={styles.iconCount}>12.3k</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Icon name="arrow-down" size={scale(20)} color="white" />
+            <Text style={styles.iconCount}>142</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Icon name="comment" size={scale(20)} color="white" />
+            <Text style={styles.iconCount}>48</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Icon name="retweet" size={scale(20)} color="white" />
+            <Text style={styles.iconCount}>48</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Icon name="bookmark" size={scale(20)} color="white" />
+            <Text style={styles.iconCount}>48</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Icon name="share-alt" size={scale(20)} color="white" />
+            <Text style={styles.iconCount}>48</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* User and Song Information */}
+        <View style={styles.bottomInfoContainer}>
+          {/* User Information */}
+          <View style={styles.userInfoRow}>
+            <Text style={styles.userName}>{item.userName}</Text>
+            <Text style={styles.userId}>{item.userId}</Text>
+          </View>
+          {/* Song Information (Displayed for both items) */}
+          <View style={styles.songInfoRow}>
+            <Text style={styles.songName} numberOfLines={1}>{item.songName}</Text>
+            <Icon name="music" size={scale(16)} color="white" />
+          </View>
+        </View>
+      </View>
+    </View>
+  );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        {/* Reel Background */}
-        <Image source={require('../../../assets/svg/reel_image.png')} style={styles.reelBackground} />
-
-        {/* Foreground Content */}
-        <ScrollView>
-          <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
-
-          {/* Top Bar with Logo and Tabs */}
-          <View style={styles.topBar}>
-            <Logo />
-            <View style={styles.tabContainer}>
-              <Text style={styles.tabText}>For You</Text>
-              <Text style={styles.tabText}>Following</Text>
-            </View>
-            <TouchableOpacity style={styles.sendIconContainer}>
-              <Icon name="paper-plane" size={scale(20)} color="black" />
-            </TouchableOpacity>
-          </View>
-
-          {/* Profile Image and Icons */}
-          <View style={styles.content}>
-            <Image source={require('../../../assets/svg/image.png')} style={styles.profileImage} />
-            <View style={styles.iconButtonsContainer}>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="arrow-up" size={scale(20)} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="arrow-down" size={scale(20)} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="comment" size={scale(20)} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="retweet" size={scale(20)} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="bookmark" size={scale(20)} color="black" />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.iconButton}>
-                <Icon name="share-alt" size={scale(20)} color="black" />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-      </View>
+      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <FlatList
+        data={content}
+        renderItem={renderItem}
+        scrollEnabled={true}
+        contentContainerStyle={{
+          paddingBottom: moderateScale(40),
+        }}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item) => item.id}
+      />
     </SafeAreaView>
   );
 };
@@ -188,43 +149,103 @@ const MediaPage = () => {
 export default MediaPage;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  pageContainer: {
+    width: width,
+    height: height,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   reelBackground: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+  },
+  textContainer: {
+    width: width,
+    height: height,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gradientBackground: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: moderateScale(20),
+    borderRadius: moderateScale(10),
+  },
+  question: {
+    fontSize: scale(20),
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginHorizontal: moderateScale(20),
+  },
+  answersContainer: {
+    marginTop: verticalScale(20),
+    width: '75%',
+  },
+  answerBox: {
+    backgroundColor: 'transparent', // Transparent background to focus on the shadow
+    padding: scale(15),
+    borderRadius: moderateScale(43),
+    marginBottom: verticalScale(20),
+    alignItems: 'center',
+  
+    // Light shadow effect
+    shadowColor: 'rgba(0, 0, 0, 0.1)', // Very subtle shadow color (light grey/black)
+    shadowOffset: { width: 0, height: 3 }, // Slight shadow offset
+    shadowOpacity: 0.1, // Light shadow opacity for soft effect
+    shadowRadius: 8, // Slightly larger shadow radius for a softer look
+    elevation: 1, // Minimal shadow on Android
+  
+    // Light border with transparency
+    borderWidth: 1, // Thin border
+    borderColor: 'rgba(94, 58, 139, 0.3)', // Light semi-transparent border color
+  },
+  
+  
+  
+  answer: {
+    fontSize: scale(16),
+    color: 'white',
+    textAlign: 'center',
+  },
+  overlayContent: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'space-between',
+    padding: moderateScale(10),
+    marginTop: moderateVerticalScale(35),
   },
   topBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop:moderateVerticalScale(30),
-    padding: moderateVerticalScale(20),
-    zIndex: 1,
   },
   tabContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   tabText: {
     fontSize: scale(14),
     marginHorizontal: scale(8),
+    color: 'white',
   },
   sendIconContainer: {
     padding: scale(8),
   },
-  content: {
-    flex: 1,
-    alignItems: 'flex-end',
-    marginEnd: moderateScale(15),
-    marginTop: verticalScale(150),
+  iconButtonsContainer: {
+    position: 'absolute',
+    right: scale(5),
+    bottom: verticalScale(110),
     zIndex: 1,
+    alignItems: 'center',
+  },
+  iconButton: {
+    marginVertical: verticalScale(5),
+    alignItems: 'center',
   },
   profileImage: {
     width: scale(40),
@@ -232,10 +253,39 @@ const styles = StyleSheet.create({
     borderRadius: scale(25),
     marginBottom: verticalScale(10),
   },
-  iconButtonsContainer: {
-    alignItems: 'center',
+  iconCount: {
+    fontSize: scale(12),
+    color: 'white',
+    marginTop: verticalScale(5),
   },
-  iconButton: {
-    marginVertical: verticalScale(15),
+  bottomInfoContainer: {
+    position: 'absolute',
+    bottom: verticalScale(70),
+    left: scale(15),
+    right: scale(15),
+    justifyContent: 'space-between',
+  },
+  userInfoRow: {
+    flexDirection: 'row',
+  },
+  userName: {
+    color: 'white',
+    fontSize: scale(14),
+    fontWeight: 'bold',
+  },
+  userId: {
+    color: 'white',
+    fontSize: scale(12),
+    marginLeft: scale(10),
+  },
+  songInfoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: verticalScale(5),
+  },
+  songName: {
+    color: 'white',
+    fontSize: scale(12),
   },
 });
