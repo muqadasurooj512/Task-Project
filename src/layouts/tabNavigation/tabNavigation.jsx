@@ -1,103 +1,93 @@
 
-// import React, { useState } from "react";
-// import { View, TouchableOpacity, StyleSheet, Modal, Animated, Text } from "react-native";
+// import React, { useState, useRef } from "react";
+// import { View, TouchableOpacity, StyleSheet, Animated, Text } from "react-native";
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import Icon from 'react-native-vector-icons/FontAwesome5';
-// import { scale, verticalScale, moderateVerticalScale, moderateScale } from 'react-native-size-matters';
+// import Icon from 'react-native-vector-icons/MaterialIcons'; // Changed to Material Icons for variety
+// import { useNavigation } from "@react-navigation/native";
 // import MediaPage from "../../screens/mediaPage/mediaPage";
-// import AddScreen from "../../screens/addScreen/addScreen";
 // import ProfilePage from "../../screens/profilePage/profilePage";
 // import SearchPage from "../../screens/searchPage/searchPage";
 // import ShopPage from "../../screens/shopPage/shopPage";
-// import { useNavigation } from "@react-navigation/native";
 // import StackNavigation from "../stackNavigation/stackNavigation";
+// import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+
 // const Tab = createBottomTabNavigator();
 
-// // Action Button Component
-// const ActionButton = ({ isExpanded, onToggle }) => {
-//   const [animation] = useState(new Animated.Value(0));
-//   const navigation = useNavigation();
+// const FloatingActionButton = ({ onMediaPress, onPollPress, onQuotePress }) => {
+//   const [expanded, setExpanded] = useState(false);
+//   const animation = useRef(new Animated.Value(0)).current;
 
-//   const translateY = animation.interpolate({
-//     inputRange: [0, 1],
-//     outputRange: [300, 0],
-//   });
-
-//   const showButtons = () => {
-//     Animated.spring(animation, {
-//       toValue: 1,
+//   const toggleMenu = () => {
+//     const toValue = expanded ? 0 : 1;
+//     setExpanded(!expanded);
+//     Animated.timing(animation, {
+//       toValue,
+//       duration: 300,
 //       useNativeDriver: true,
 //     }).start();
 //   };
 
-//   const hideButtons = () => {
-//     Animated.timing(animation, {
-//       toValue: 0,
-//       duration: 200,
-//       useNativeDriver: true,
-//     }).start(() => onToggle(false));
+//   const getStyle = (angle, radius) => {
+//     return {
+//       transform: [
+//         {
+//           translateX: animation.interpolate({
+//             inputRange: [0, 1],
+//             outputRange: [0, radius * Math.cos(angle)],
+//           }),
+//         },
+//         {
+//           translateY: animation.interpolate({
+//             inputRange: [0, 1],
+//             outputRange: [0, radius * Math.sin(angle)],
+//           }),
+//         },
+//       ],
+//       opacity: animation,
+//     };
 //   };
 
 //   return (
-//     <View style={styles.actionButtonContainer}>
-//       <TouchableOpacity
-//         style={styles.mainButton}
-//         onPress={() => {
-//           if (isExpanded) {
-//             hideButtons();
-//           } else {
-//             onToggle(true);
-//             showButtons();
-//           }
-//         }}
-//       >
-//         <Icon name={isExpanded ? "times" : "plus"} size={28} color="white" />
-//       </TouchableOpacity>
-
-//       <Modal transparent visible={isExpanded} animationType="none" onRequestClose={hideButtons}>
-//         <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={hideButtons}>
-//           <Animated.View style={[styles.buttonContainer, { transform: [{ translateY }] }]}>
-//             <TouchableOpacity
-//               style={styles.actionButton}
-//               onPress={() => {
-//                 hideButtons();
-//                 navigation.replace("QuoteScreen");
-//               }}
-//             >
-//               <Icon name="quote-left" size={24} color="white" />
-//               <Text style={styles.buttonText}>Quote</Text>
-//             </TouchableOpacity>
-
-//             <TouchableOpacity
-//               style={styles.actionButton}
-//               onPress={() => {
-//                 hideButtons();
-//                 navigation.replace("CameraScreen");
-//               }}
-//             >
-//               <Icon name="image" size={24} color="white" />
-//               <Text style={styles.buttonText}>Media</Text>
-//             </TouchableOpacity>
-
-//             <TouchableOpacity
-//               style={styles.actionButton}
-//               onPress={() => {
-//                 hideButtons();
-//                 navigation.replace("PollScreen");
-//               }}
-//             >
-//               <Icon name="question-circle" size={24} color="white" />
-//               <Text style={styles.buttonText}>Question</Text>
-//             </TouchableOpacity>
-//           </Animated.View>
+//     <View style={styles.fabContainer}>
+//       <Animated.View style={[styles.option, getStyle(-Math.PI / 3, 150)]}>
+//         <TouchableOpacity style={styles.fabOption} onPress={onQuotePress}>
+//           <Icon name="format-quote" size={moderateScale(25)} color="white" />
+//           <Text style={styles.label}>Quote</Text>
 //         </TouchableOpacity>
-//       </Modal>
+//       </Animated.View>
+//       <Animated.View style={[styles.option, getStyle(-Math.PI / 2, 150)]}>
+//         <TouchableOpacity style={styles.fabOption} onPress={onMediaPress}>
+//           <Icon name="photo-camera" size={moderateScale(25)} color="white" />
+//           <Text style={styles.label}>Media</Text>
+//         </TouchableOpacity>
+//       </Animated.View>
+//       <Animated.View style={[styles.option, getStyle(-2 * Math.PI / 3, 150)]}>
+//         <TouchableOpacity style={styles.fabOption} onPress={onPollPress}>
+//           <Icon name="poll" size={moderateScale(25)} color="white" />
+//           <Text style={styles.label}>Poll</Text>
+//         </TouchableOpacity>
+//       </Animated.View>
+//       <TouchableOpacity style={styles.simpleFab} onPress={toggleMenu}>
+//         <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="#007AFF" />
+//       </TouchableOpacity>
 //     </View>
 //   );
 // };
 
 // const BottomNavigation = () => {
-//   const [isExpanded, setIsExpanded] = useState(false);
+//   const navigation = useNavigation();
+
+//   const handleMediaPress = () => {
+//     navigation.navigate('CameraScreen');
+//   };
+
+//   const handlePollPress = () => {
+//     navigation.navigate('PollScreen');
+//   };
+
+//   const handleQuotePress = () => {
+//     navigation.navigate('QuoteScreen');
+//   };
 
 //   return (
 //     <Tab.Navigator
@@ -106,24 +96,25 @@
 //         headerShown: false,
 //         tabBarStyle: {
 //           position: "absolute",
-//           backgroundColor: "black",
-//           height: moderateVerticalScale(70),
+//           backgroundColor: "#282828", // Changed to a darker background color
+//           height: verticalScale(70),
 //           shadowColor: "black",
 //           shadowOpacity: 0.1,
-//           shadowOffset: { width: 0, height: moderateVerticalScale(2) },
+//           shadowOffset: { width: 0, height: 2 },
 //           shadowRadius: 1,
 //           elevation: 5,
 //         },
 //         tabBarLabelPosition: "below-icon",
 //         tabBarLabelStyle: {
-//           fontSize: 12,
-//           marginTop: verticalScale(2),
+//           fontSize: moderateScale(12),
+//           marginTop: 2,
+//           color: "#d3d3d3", // Light gray text for inactive tabs
 //         },
 //         tabBarIconStyle: {
-//           marginTop: verticalScale(8),
+//           marginTop: 8,
 //         },
-//         tabBarActiveTintColor: "white",
-//         tabBarInactiveTintColor: "gray",
+//         tabBarActiveTintColor: "#007AFF", // Blue active icon color
+//         tabBarInactiveTintColor: "#d3d3d3", // Gray inactive icon color
 //       }}
 //     >
 //       <Tab.Screen
@@ -134,8 +125,8 @@
 //           tabBarIcon: ({ focused }) => (
 //             <Icon
 //               name="home"
-//               size={24}
-//               color={focused ? "white" : "gray"}
+//               size={moderateScale(24)}
+//               color={focused ? "#007AFF" : "#d3d3d3"}
 //               style={styles.icon}
 //             />
 //           ),
@@ -149,8 +140,8 @@
 //           tabBarIcon: ({ focused }) => (
 //             <Icon
 //               name="shopping-cart"
-//               size={24}
-//               color={focused ? "white" : "gray"}
+//               size={moderateScale(24)}
+//               color={focused ? "#007AFF" : "#d3d3d3"}
 //               style={styles.icon}
 //             />
 //           ),
@@ -160,7 +151,13 @@
 //         name="StackNavigation"
 //         component={StackNavigation}
 //         options={{
-//           tabBarButton: () => <ActionButton isExpanded={isExpanded} onToggle={setIsExpanded} />, 
+//           tabBarButton: () => (
+//             <FloatingActionButton
+//               onMediaPress={handleMediaPress}
+//               onPollPress={handlePollPress}
+//               onQuotePress={handleQuotePress}
+//             />
+//           ),
 //           tabBarLabel: "",
 //           tabBarIcon: () => null,
 //         }}
@@ -173,8 +170,8 @@
 //           tabBarIcon: ({ focused }) => (
 //             <Icon
 //               name="search"
-//               size={24}
-//               color={focused ? "white" : "gray"}
+//               size={moderateScale(24)}
+//               color={focused ? "#007AFF" : "#d3d3d3"}
 //               style={styles.icon}
 //             />
 //           ),
@@ -187,9 +184,9 @@
 //           tabBarLabel: "",
 //           tabBarIcon: ({ focused }) => (
 //             <Icon
-//               name="user"
-//               size={24}
-//               color={focused ? "white" : "gray"}
+//               name="person"
+//               size={moderateScale(24)}
+//               color={focused ? "#007AFF" : "#d3d3d3"}
 //               style={styles.icon}
 //             />
 //           ),
@@ -200,157 +197,137 @@
 // };
 
 // const styles = StyleSheet.create({
-//   actionButtonContainer: {
-    
-//       top: moderateVerticalScale(8),
-//     justifyContent: "center",
-//    alignItems: "center",
-//   },
-//   mainButton: {
-//     height: scale(30),
-//     width:scale(30),
-//     borderRadius: scale(30),
-//     borderColor: "white",
-//     borderWidth: 2,  // Added to make the border visible
-//     backgroundColor: "black",
-//     justifyContent: "center",
+//   fabContainer: {
+//     position: "absolute",
+// marginTop:moderateVerticalScale(8),
+//     alignSelf: "center",
 //     alignItems: "center",
+//     overflow: "visible",
+//   },
+//   simpleFab: {
+  
+//     backgroundColor: "black", 
+//     borderRadius: 80,
 //     shadowColor: "black",
-//     shadowOpacity: 0.1,
-//     shadowOffset: { width: 0, height: moderateVerticalScale(1) },
-//     shadowRadius: 1,
+//     shadowOpacity: 0.2,
+//     shadowRadius: 5,
 //     elevation: 5,
+//     borderColor: "white",
+//     borderWidth: 2,
 //   },
-//   modalOverlay: {
-//     flex: 1,
+//   fabOption: {
+//     width: moderateScale(64),
+//     height: moderateScale(80),
 //     backgroundColor: "rgba(0, 0, 0, 0.6)",
-//     justifyContent: "flex-end",
-//   },
-//   buttonContainer: {
-//     flexDirection: "row",
-//     justifyContent: "space-evenly",
-//      padding: moderateScale(20),
-   
-//     marginBottom:moderateVerticalScale(70)
-//   },
-//   actionButton: {
-//     backgroundColor: "rgba(128, 90, 213, 0.8)",
-//     borderRadius: 16,
-//     paddingHorizontal: moderateScale(8),
-//     paddingVertical:moderateVerticalScale(25),
+//     borderRadius: 10,
+//     justifyContent: "center",
 //     alignItems: "center",
-//     width: 100,
+//     marginBottom: moderateScale(10),
 //   },
-//   buttonText: {
+//   label: {
 //     color: "white",
-//     marginTop: 8,
-//     fontSize: 14,
+//     marginTop: moderateScale(4),
+//     fontSize: moderateScale(12),
+//   },
+//   option: {
+//     position: "absolute",
 //   },
 //   icon: {
-//     width: scale(24),
-//     height: scale(24),
+//     width: moderateScale(24),
+//     height: moderateScale(24),
 //   },
 // });
 
 // export default BottomNavigation;
-import React, { useState } from "react";
-import { View, TouchableOpacity, StyleSheet, Modal, Animated, Text } from "react-native";
+import React, { useState, useRef } from "react";
+import { View, TouchableOpacity, StyleSheet, Animated, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import { scale, verticalScale, moderateVerticalScale, moderateScale } from 'react-native-size-matters';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Changed to Material Icons for variety
+import { useNavigation } from "@react-navigation/native";
 import MediaPage from "../../screens/mediaPage/mediaPage";
 import ProfilePage from "../../screens/profilePage/profilePage";
 import SearchPage from "../../screens/searchPage/searchPage";
 import ShopPage from "../../screens/shopPage/shopPage";
-import { useNavigation } from "@react-navigation/native";
 import StackNavigation from "../stackNavigation/stackNavigation";
+import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
 const Tab = createBottomTabNavigator();
 
-const ActionButton = ({ isExpanded, onToggle }) => {
-  const [animation] = useState(new Animated.Value(0));
-  const navigation = useNavigation();
+const FloatingActionButton = ({ onMediaPress, onPollPress, onQuotePress }) => {
+  const [expanded, setExpanded] = useState(false);
+  const animation = useRef(new Animated.Value(0)).current;
 
-  const translateY = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [300, 0],
-  });
-
-  const showButtons = () => {
-    Animated.spring(animation, {
-      toValue: 1,
+  const toggleMenu = () => {
+    const toValue = expanded ? 0 : 1;
+    setExpanded(!expanded);
+    Animated.timing(animation, {
+      toValue,
+      duration: 300,
       useNativeDriver: true,
     }).start();
   };
 
-  const hideButtons = () => {
-    Animated.timing(animation, {
-      toValue: 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start(() => onToggle(false));
+  const getStyle = (angle, radius) => {
+    return {
+      transform: [
+        {
+          translateX: animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, radius * Math.cos(angle)],
+          }),
+        },
+        {
+          translateY: animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, radius * Math.sin(angle)],
+          }),
+        },
+      ],
+      opacity: animation,
+    };
   };
 
   return (
-    <View style={styles.actionButtonContainer}>
-      <TouchableOpacity
-        style={styles.mainButton}
-        onPress={() => {
-          if (isExpanded) {
-            hideButtons();
-          } else {
-            onToggle(true);
-            showButtons();
-          }
-        }}
-      >
-        <Icon name={isExpanded ? "times" : "plus"} size={28} color="white" />
-      </TouchableOpacity>
-
-      <Modal transparent visible={isExpanded} animationType="none" onRequestClose={hideButtons}>
-        <TouchableOpacity style={styles.modalOverlay} activeOpacity={1} onPress={hideButtons}>
-          <Animated.View style={[styles.buttonContainer, { transform: [{ translateY }] }]}>
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={() => {
-                hideButtons();
-                navigation.navigate("QuoteScreen"); // Fixed from replace to navigate
-              }}
-            >
-              <Icon name="quote-left" size={24} color="white" />
-              <Text style={styles.buttonText}>Quote</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={() => {
-                hideButtons();
-                navigation.navigate("CameraScreen"); // Fixed from replace to navigate
-              }}
-            >
-              <Icon name="image" size={24} color="white" />
-              <Text style={styles.buttonText}>Media</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={() => {
-                hideButtons();
-                navigation.navigate("PollScreen"); // Fixed from replace to navigate
-              }}
-            >
-              <Icon name="question-circle" size={24} color="white" />
-              <Text style={styles.buttonText}>Poll</Text>
-            </TouchableOpacity>
-          </Animated.View>
+    <View style={styles.fabContainer}>
+      <Animated.View style={[styles.option, getStyle(-Math.PI / 3, 150)]}>
+        <TouchableOpacity style={styles.fabOption} onPress={onQuotePress}>
+          <Icon name="format-quote" size={moderateScale(25)} color="white" />
+          <Text style={styles.label}>Quote</Text>
         </TouchableOpacity>
-      </Modal>
+      </Animated.View>
+      <Animated.View style={[styles.option, getStyle(-Math.PI / 2, 150)]}>
+        <TouchableOpacity style={styles.fabOption} onPress={onMediaPress}>
+          <Icon name="photo-camera" size={moderateScale(25)} color="white" />
+          <Text style={styles.label}>Media</Text>
+        </TouchableOpacity>
+      </Animated.View>
+      <Animated.View style={[styles.option, getStyle(-2 * Math.PI / 3, 150)]}>
+        <TouchableOpacity style={styles.fabOption} onPress={onPollPress}>
+          <Icon name="poll" size={moderateScale(25)} color="white" />
+          <Text style={styles.label}>Poll</Text>
+        </TouchableOpacity>
+      </Animated.View>
+      <TouchableOpacity style={styles.simpleFab} onPress={toggleMenu}>
+        <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="white" />
+      </TouchableOpacity>
     </View>
   );
 };
 
 const BottomNavigation = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const navigation = useNavigation();
+
+  const handleMediaPress = () => {
+    navigation.navigate('CameraScreen');
+  };
+
+  const handlePollPress = () => {
+    navigation.navigate('PollScreen');
+  };
+
+  const handleQuotePress = () => {
+    navigation.navigate('QuoteScreen');
+  };
 
   return (
     <Tab.Navigator
@@ -359,24 +336,26 @@ const BottomNavigation = () => {
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: "black",
-          height: moderateVerticalScale(70),
+          backgroundColor: "black", // Black background for bottom navigation
+          height: verticalScale(70),
           shadowColor: "black",
           shadowOpacity: 0.1,
-          shadowOffset: { width: 0, height: moderateVerticalScale(2) },
+          shadowOffset: { width: 0, height: 2 },
           shadowRadius: 1,
           elevation: 5,
         },
         tabBarLabelPosition: "below-icon",
         tabBarLabelStyle: {
-          fontSize: 12,
-          marginTop: verticalScale(2),
+          fontSize: moderateScale(12),
+          marginTop: 2,
+          color: "#fff", // White label for all tabs
         },
         tabBarIconStyle: {
-          marginTop: verticalScale(8),
+          marginTop: 8,
+          color: "white", // White color for all icons
         },
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "white", // White active icon color
+        tabBarInactiveTintColor: "white", // White inactive icon color
       }}
     >
       <Tab.Screen
@@ -387,8 +366,8 @@ const BottomNavigation = () => {
           tabBarIcon: ({ focused }) => (
             <Icon
               name="home"
-              size={24}
-              color={focused ? "white" : "gray"}
+              size={moderateScale(24)}
+              color={focused ? "white" : "white"} // White icon color for both active and inactive
               style={styles.icon}
             />
           ),
@@ -402,8 +381,8 @@ const BottomNavigation = () => {
           tabBarIcon: ({ focused }) => (
             <Icon
               name="shopping-cart"
-              size={24}
-              color={focused ? "white" : "gray"}
+              size={moderateScale(24)}
+              color={focused ? "white" : "white"} // White icon color for both active and inactive
               style={styles.icon}
             />
           ),
@@ -413,7 +392,13 @@ const BottomNavigation = () => {
         name="StackNavigation"
         component={StackNavigation}
         options={{
-          tabBarButton: () => <ActionButton isExpanded={isExpanded} onToggle={setIsExpanded} />,
+          tabBarButton: () => (
+            <FloatingActionButton
+              onMediaPress={handleMediaPress}
+              onPollPress={handlePollPress}
+              onQuotePress={handleQuotePress}
+            />
+          ),
           tabBarLabel: "",
           tabBarIcon: () => null,
         }}
@@ -426,8 +411,8 @@ const BottomNavigation = () => {
           tabBarIcon: ({ focused }) => (
             <Icon
               name="search"
-              size={24}
-              color={focused ? "white" : "gray"}
+              size={moderateScale(24)}
+              color={focused ? "white" : "white"} // White icon color for both active and inactive
               style={styles.icon}
             />
           ),
@@ -440,9 +425,9 @@ const BottomNavigation = () => {
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
             <Icon
-              name="user"
-              size={24}
-              color={focused ? "white" : "gray"}
+              name="person"
+              size={moderateScale(24)}
+              color={focused ? "white" : "white"} // White icon color for both active and inactive
               style={styles.icon}
             />
           ),
@@ -453,53 +438,45 @@ const BottomNavigation = () => {
 };
 
 const styles = StyleSheet.create({
-  actionButtonContainer: {
-    top: moderateVerticalScale(8),
-    justifyContent: "center",
+  fabContainer: {
+    position: "absolute",
+    marginTop: moderateVerticalScale(8),
+    alignSelf: "center",
     alignItems: "center",
+    overflow: "visible",
   },
-  mainButton: {
-    height: scale(30),
-    width: scale(30),
-    borderRadius: scale(30),
+  simpleFab: {
+    backgroundColor: "black",
+    borderRadius: 80,
+    shadowColor: "black",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
     borderColor: "white",
     borderWidth: 2,
-    backgroundColor: "black",
+  },
+  fabOption: {
+    width: moderateScale(64),
+    height: moderateScale(80),
+    backgroundColor: "rgba(114, 116, 117, 0.6)",
+    borderRadius: 10,
     justifyContent: "center",
+    borderColor:"rgba(57, 14, 82, 0.6)",
+    borderWidth:2,
     alignItems: "center",
-    shadowColor: "black",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: moderateVerticalScale(1) },
-    shadowRadius: 1,
-    elevation: 5,
+    marginBottom: moderateScale(10),
   },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    justifyContent: "flex-end",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    padding: moderateScale(20),
-    marginBottom: moderateVerticalScale(70),
-  },
-  actionButton: {
-    backgroundColor: "rgba(128, 90, 213, 0.8)",
-    borderRadius: 16,
-    paddingHorizontal: moderateScale(8),
-    paddingVertical: moderateVerticalScale(25),
-    alignItems: "center",
-    width: 100,
-  },
-  buttonText: {
+  label: {
     color: "white",
-    marginTop: 8,
-    fontSize: 14,
+    marginTop: moderateScale(4),
+    fontSize: moderateScale(12),
+  },
+  option: {
+    position: "absolute",
   },
   icon: {
-    width: scale(24),
-    height: scale(24),
+    width: moderateScale(24),
+    height: moderateScale(24),
   },
 });
 

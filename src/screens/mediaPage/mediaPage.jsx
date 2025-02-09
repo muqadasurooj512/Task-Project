@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   StyleSheet,
@@ -12,10 +13,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import LinearGradient from 'react-native-linear-gradient'; // Add this import for gradient
+import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../../assets/svg/LogoSvg.svg';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const content = [
   {
@@ -38,7 +39,7 @@ const content = [
       'Go on Social Media',
       'Reading'
     ],
-    songName: 'Chill Vibes - Relax Music',  // Static song name for question item
+    songName: 'Chill Vibes - Relax Music',
   },
 ];
 
@@ -50,14 +51,12 @@ const MediaPage = () => {
       ) : (
         <View style={styles.textContainer}>
           <LinearGradient
-            colors={['#000AFFB3', '#6F00FFB3', '#FF0000B3']} // Stronger gradient opacity
+            colors={['#000AFFB3', '#6F00FFB3', '#FF0000B3']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.gradientBackground}
           >
             <Text style={styles.question}>{item.question}</Text>
-
-            {/* Displaying answers in separate boxes */}
             <View style={styles.answersContainer}>
               {item.answers.map((answer, index) => (
                 <TouchableOpacity key={index} style={styles.answerBox}>
@@ -69,9 +68,7 @@ const MediaPage = () => {
         </View>
       )}
 
-      {/* Overlay content for each item */}
       <View style={styles.overlayContent}>
-        {/* Top Bar with Logo and Tabs */}
         <View style={styles.topBar}>
           <Logo />
           <View style={styles.tabContainer}>
@@ -83,7 +80,6 @@ const MediaPage = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Profile Image and Icons */}
         <View style={styles.iconButtonsContainer}>
           <Image source={require('../../../assets/svg/image.png')} style={styles.profileImage} />
           <TouchableOpacity style={styles.iconButton}>
@@ -112,14 +108,11 @@ const MediaPage = () => {
           </TouchableOpacity>
         </View>
 
-        {/* User and Song Information */}
         <View style={styles.bottomInfoContainer}>
-          {/* User Information */}
           <View style={styles.userInfoRow}>
             <Text style={styles.userName}>{item.userName}</Text>
             <Text style={styles.userId}>{item.userId}</Text>
           </View>
-          {/* Song Information (Displayed for both items) */}
           <View style={styles.songInfoRow}>
             <Text style={styles.songName} numberOfLines={1}>{item.songName}</Text>
             <Icon name="music" size={scale(16)} color="white" />
@@ -136,9 +129,7 @@ const MediaPage = () => {
         data={content}
         renderItem={renderItem}
         scrollEnabled={true}
-        contentContainerStyle={{
-          paddingBottom: moderateScale(40),
-        }}
+        contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
       />
@@ -150,8 +141,8 @@ export default MediaPage;
 
 const styles = StyleSheet.create({
   pageContainer: {
-    width: width,
-    height: height,
+    width: '100%',
+    height: Dimensions.get('window').height,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -161,8 +152,8 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   textContainer: {
-    width: width,
-    height: height,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -186,26 +177,19 @@ const styles = StyleSheet.create({
     width: '75%',
   },
   answerBox: {
-    backgroundColor: 'transparent', // Transparent background to focus on the shadow
+    backgroundColor: 'transparent',
     padding: scale(15),
     borderRadius: moderateScale(43),
     marginBottom: verticalScale(20),
     alignItems: 'center',
-  
-    // Light shadow effect
-    shadowColor: 'rgba(0, 0, 0, 0.1)', // Very subtle shadow color (light grey/black)
-    shadowOffset: { width: 0, height: 3 }, // Slight shadow offset
-    shadowOpacity: 0.1, // Light shadow opacity for soft effect
-    shadowRadius: 8, // Slightly larger shadow radius for a softer look
-    elevation: 1, // Minimal shadow on Android
-  
-    // Light border with transparency
-    borderWidth: 1, // Thin border
-    borderColor: 'rgba(94, 58, 139, 0.3)', // Light semi-transparent border color
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 1,
+    borderWidth: 1,
+    borderColor: 'rgba(94, 58, 139, 0.3)',
   },
-  
-  
-  
   answer: {
     fontSize: scale(16),
     color: 'white',
@@ -248,9 +232,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImage: {
-    width: scale(40),
-    height: scale(40),
-    borderRadius: scale(25),
+    width: moderateScale(40),
+    height: moderateScale(40),
+    borderRadius: moderateScale(20),
     marginBottom: verticalScale(10),
   },
   iconCount: {
@@ -288,4 +272,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: scale(12),
   },
+  listContent: {
+    paddingBottom: moderateScale(40),
+  }
 });
