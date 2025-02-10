@@ -6,7 +6,7 @@ import QuestionComponent from '../../components/questions';
 import HashtagSection from '../../components/hashtagsSec';
 import Caption from "../../components/captionWrite";
 import InputSection from '../../components/inputSection';
-
+import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 const PollScreen = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexGrow: 1,
-    paddingBottom: 20, 
+       paddingBottom: moderateVerticalScale(20), 
+        paddingHorizontal: scale(10), 
   },
 });
 

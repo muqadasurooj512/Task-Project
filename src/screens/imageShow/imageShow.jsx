@@ -6,7 +6,7 @@ import Header from '../../components/header';
 import HashtagSection from '../../components/hashtagsSec';
 import { useRoute } from '@react-navigation/native';
 import ImageRowWithCaption from '../../components/captionWrite';
-import { scale, verticalScale } from 'react-native-size-matters'; 
+import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
 const ImageShow = () => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    paddingBottom: moderateVerticalScale(20), 
+        paddingHorizontal: scale(10), 
     
   },
   image: {
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexDirection: 'row',
-    paddingBottom: verticalScale(20),
+    
   },
 });
 
