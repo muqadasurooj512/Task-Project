@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const InputSection = ({ text, setText }) => {
   return (
@@ -23,17 +25,17 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     color: '#ffffff',
-    fontSize: 14,
-    marginBottom: 5,
+    fontSize: scale(14), // Use scale for font size
+    marginBottom: verticalScale(5), // Use verticalScale for margin
   },
   input: {
     backgroundColor: '#000000',
     color: '#FFF',
-    fontSize: 16,
-    padding: 10,
-    borderRadius: 10,
-    height: 300,
-    marginBottom: 20,
+    fontSize: moderateScale(16), // Use moderateScale for font size
+    padding: moderateScale(10), // Use moderateScale for padding
+    borderRadius: moderateScale(10), // Use moderateScale for border radius
+    height: verticalScale(200), // Use verticalScale for height
+    marginBottom: verticalScale(20), // Use verticalScale for margin
     textAlignVertical: 'top',
   },
 });

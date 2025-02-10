@@ -15,7 +15,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 import LinearGradient from 'react-native-linear-gradient';
 import Logo from '../../../assets/svg/LogoSvg.svg';
-
+import Send from '../../../assets/svg/Send.svg';
+import Arrowup from '../../../assets/svg/arrowup.svg';
+import Down from '../../../assets/svg/arrowdown.svg';
+import Message from '../../../assets/svg/massage.svg';
+import Reshare from '../../../assets/svg/reshare.svg';
+import Save from '../../../assets/svg/saved.svg';
+import Send2 from '../../../assets/svg/send2.svg';
+import Song from '../../../assets/svg/song.svg';
 const { width } = Dimensions.get('window');
 
 const content = [
@@ -76,34 +83,34 @@ const MediaPage = () => {
             <Text style={styles.tabText}>Following</Text>
           </View>
           <TouchableOpacity style={styles.sendIconContainer}>
-            <Icon name="paper-plane" size={scale(20)} color="white" />
+             <Send width={moderateScale(25)} height={moderateScale(25)} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.iconButtonsContainer}>
           <Image source={require('../../../assets/svg/image.png')} style={styles.profileImage} />
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="arrow-up" size={scale(20)} color="white" />
+             <Arrowup width={moderateScale(25)} height={moderateScale(25)} />
             <Text style={styles.iconCount}>12.3k</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="arrow-down" size={scale(20)} color="white" />
+            <Down width={moderateScale(25)} height={moderateScale(25)} />
             <Text style={styles.iconCount}>142</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="comment" size={scale(20)} color="white" />
+             <Message width={moderateScale(25)} height={moderateScale(25)} />
             <Text style={styles.iconCount}>48</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="retweet" size={scale(20)} color="white" />
+             <Reshare width={moderateScale(25)} height={moderateScale(25)} />
             <Text style={styles.iconCount}>48</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="bookmark" size={scale(20)} color="white" />
+             <Save width={moderateScale(25)} height={moderateScale(25)} />
             <Text style={styles.iconCount}>48</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
-            <Icon name="share-alt" size={scale(20)} color="white" />
+             <Send2 width={moderateScale(25)} height={moderateScale(25)} />
             <Text style={styles.iconCount}>48</Text>
           </TouchableOpacity>
         </View>
@@ -115,7 +122,7 @@ const MediaPage = () => {
           </View>
           <View style={styles.songInfoRow}>
             <Text style={styles.songName} numberOfLines={1}>{item.songName}</Text>
-            <Icon name="music" size={scale(16)} color="white" />
+         <Song width={moderateScale(25)} height={moderateScale(25)} />
           </View>
         </View>
       </View>

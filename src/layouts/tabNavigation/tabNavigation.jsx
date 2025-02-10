@@ -2,7 +2,7 @@
 // import React, { useState, useRef } from "react";
 // import { View, TouchableOpacity, StyleSheet, Animated, Text } from "react-native";
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import Icon from 'react-native-vector-icons/MaterialIcons'; // Changed to Material Icons for variety
+// import Icon from 'react-native-vector-icons/MaterialIcons'; 
 // import { useNavigation } from "@react-navigation/native";
 // import MediaPage from "../../screens/mediaPage/mediaPage";
 // import ProfilePage from "../../screens/profilePage/profilePage";
@@ -68,7 +68,7 @@
 //         </TouchableOpacity>
 //       </Animated.View>
 //       <TouchableOpacity style={styles.simpleFab} onPress={toggleMenu}>
-//         <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="#007AFF" />
+//         <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="white" />
 //       </TouchableOpacity>
 //     </View>
 //   );
@@ -96,7 +96,7 @@
 //         headerShown: false,
 //         tabBarStyle: {
 //           position: "absolute",
-//           backgroundColor: "#282828", // Changed to a darker background color
+//           backgroundColor: "black", // Black background for bottom navigation
 //           height: verticalScale(70),
 //           shadowColor: "black",
 //           shadowOpacity: 0.1,
@@ -108,13 +108,14 @@
 //         tabBarLabelStyle: {
 //           fontSize: moderateScale(12),
 //           marginTop: 2,
-//           color: "#d3d3d3", // Light gray text for inactive tabs
+//           color: "#fff", // White label for all tabs
 //         },
 //         tabBarIconStyle: {
 //           marginTop: 8,
+//           color: "white", // White color for all icons
 //         },
-//         tabBarActiveTintColor: "#007AFF", // Blue active icon color
-//         tabBarInactiveTintColor: "#d3d3d3", // Gray inactive icon color
+//         tabBarActiveTintColor: "white", // White active icon color
+//         tabBarInactiveTintColor: "white", // White inactive icon color
 //       }}
 //     >
 //       <Tab.Screen
@@ -126,7 +127,7 @@
 //             <Icon
 //               name="home"
 //               size={moderateScale(24)}
-//               color={focused ? "#007AFF" : "#d3d3d3"}
+//               color={focused ? "white" : "white"} // White icon color for both active and inactive
 //               style={styles.icon}
 //             />
 //           ),
@@ -141,7 +142,7 @@
 //             <Icon
 //               name="shopping-cart"
 //               size={moderateScale(24)}
-//               color={focused ? "#007AFF" : "#d3d3d3"}
+//               color={focused ? "white" : "white"} // White icon color for both active and inactive
 //               style={styles.icon}
 //             />
 //           ),
@@ -171,7 +172,7 @@
 //             <Icon
 //               name="search"
 //               size={moderateScale(24)}
-//               color={focused ? "#007AFF" : "#d3d3d3"}
+//               color={focused ? "white" : "white"} // White icon color for both active and inactive
 //               style={styles.icon}
 //             />
 //           ),
@@ -186,7 +187,7 @@
 //             <Icon
 //               name="person"
 //               size={moderateScale(24)}
-//               color={focused ? "#007AFF" : "#d3d3d3"}
+//               color={focused ? "white" : "white"} // White icon color for both active and inactive
 //               style={styles.icon}
 //             />
 //           ),
@@ -199,14 +200,13 @@
 // const styles = StyleSheet.create({
 //   fabContainer: {
 //     position: "absolute",
-// marginTop:moderateVerticalScale(8),
+//     marginTop: moderateVerticalScale(8),
 //     alignSelf: "center",
 //     alignItems: "center",
 //     overflow: "visible",
 //   },
 //   simpleFab: {
-  
-//     backgroundColor: "black", 
+//     backgroundColor: "black",
 //     borderRadius: 80,
 //     shadowColor: "black",
 //     shadowOpacity: 0.2,
@@ -218,9 +218,11 @@
 //   fabOption: {
 //     width: moderateScale(64),
 //     height: moderateScale(80),
-//     backgroundColor: "rgba(0, 0, 0, 0.6)",
+//     backgroundColor: "rgba(114, 116, 117, 0.6)",
 //     borderRadius: 10,
 //     justifyContent: "center",
+//     borderColor:"rgba(57, 14, 82, 0.6)",
+//     borderWidth:2,
 //     alignItems: "center",
 //     marginBottom: moderateScale(10),
 //   },
@@ -242,12 +244,20 @@
 import React, { useState, useRef } from "react";
 import { View, TouchableOpacity, StyleSheet, Animated, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Changed to Material Icons for variety
 import { useNavigation } from "@react-navigation/native";
+import Home from '../../../assets/svg/home.svg';
+import Shop from '../../../assets/svg/Shop.svg';
+import Search from '../../../assets/svg/search.svg';
+import Account from '../../../assets/svg/account.svg';
+import Quote from '../../../assets/svg/quote.svg';
+import Media from '../../../assets/svg/media.svg';
+import Poll from '../../../assets/svg/poll.svg';
+
 import MediaPage from "../../screens/mediaPage/mediaPage";
 import ProfilePage from "../../screens/profilePage/profilePage";
 import SearchPage from "../../screens/searchPage/searchPage";
 import ShopPage from "../../screens/shopPage/shopPage";
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
 import StackNavigation from "../stackNavigation/stackNavigation";
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
@@ -291,24 +301,25 @@ const FloatingActionButton = ({ onMediaPress, onPollPress, onQuotePress }) => {
     <View style={styles.fabContainer}>
       <Animated.View style={[styles.option, getStyle(-Math.PI / 3, 150)]}>
         <TouchableOpacity style={styles.fabOption} onPress={onQuotePress}>
-          <Icon name="format-quote" size={moderateScale(25)} color="white" />
-          <Text style={styles.label}>Quote</Text>
+          <Poll width={moderateScale(25)} height={moderateScale(25)} />
+          <Text style={styles.label}>Poll</Text>
         </TouchableOpacity>
       </Animated.View>
       <Animated.View style={[styles.option, getStyle(-Math.PI / 2, 150)]}>
         <TouchableOpacity style={styles.fabOption} onPress={onMediaPress}>
-          <Icon name="photo-camera" size={moderateScale(25)} color="white" />
+          <Media width={moderateScale(25)} height={moderateScale(25)} />
           <Text style={styles.label}>Media</Text>
         </TouchableOpacity>
       </Animated.View>
       <Animated.View style={[styles.option, getStyle(-2 * Math.PI / 3, 150)]}>
         <TouchableOpacity style={styles.fabOption} onPress={onPollPress}>
-          <Icon name="poll" size={moderateScale(25)} color="white" />
-          <Text style={styles.label}>Poll</Text>
+          <Quote width={moderateScale(25)} height={moderateScale(25)} />
+          <Text style={styles.label}>Quote</Text>
         </TouchableOpacity>
       </Animated.View>
       <TouchableOpacity style={styles.simpleFab} onPress={toggleMenu}>
-        <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="white" />
+      <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="white" />
+        {/* <SvgXml uri={expanded ? require('../../assets/svg/closeIcon.svg') : require('../../assets/svg/addIcon.svg')} width={moderateScale(30)} height={moderateScale(30)} /> */}
       </TouchableOpacity>
     </View>
   );
@@ -322,11 +333,11 @@ const BottomNavigation = () => {
   };
 
   const handlePollPress = () => {
-    navigation.navigate('PollScreen');
+    navigation.navigate('QuoteScreen');
   };
 
   const handleQuotePress = () => {
-    navigation.navigate('QuoteScreen');
+    navigation.navigate('PollScreen');
   };
 
   return (
@@ -364,12 +375,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Icon
-              name="home"
-              size={moderateScale(24)}
-              color={focused ? "white" : "white"} // White icon color for both active and inactive
-              style={styles.icon}
-            />
+            <Home width={moderateScale(24)} height={moderateScale(24)} />
           ),
         }}
       />
@@ -379,12 +385,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Icon
-              name="shopping-cart"
-              size={moderateScale(24)}
-              color={focused ? "white" : "white"} // White icon color for both active and inactive
-              style={styles.icon}
-            />
+            <Shop width={moderateScale(24)} height={moderateScale(24)} />
           ),
         }}
       />
@@ -409,12 +410,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Icon
-              name="search"
-              size={moderateScale(24)}
-              color={focused ? "white" : "white"} // White icon color for both active and inactive
-              style={styles.icon}
-            />
+            <Search width={moderateScale(24)} height={moderateScale(24)} />
           ),
         }}
       />
@@ -424,12 +420,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Icon
-              name="person"
-              size={moderateScale(24)}
-              color={focused ? "white" : "white"} // White icon color for both active and inactive
-              style={styles.icon}
-            />
+            <Account width={moderateScale(24)} height={moderateScale(24)} />
           ),
         }}
       />

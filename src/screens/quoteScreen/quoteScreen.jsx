@@ -1,24 +1,11 @@
-// import { StyleSheet, Text, View } from 'react-native'
-// import React from 'react'
 
-// const QuoteScreen = () => {
-//   return (
-//     <View>
-//       <Text>quoteScreen</Text>
-//     </View>
-//   )
-// }
-
-// export default QuoteScreen
-
-// const styles = StyleSheet.create({})
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 import Header from '../../components/header';
-import QuestionComponent from '../../components/questions';
 import HashtagSection from '../../components/hashtagsSec';
-import Caption from "../../components/captionWrite"
 import InputSection from '../../components/inputSection';
+
 const QuoteScreen = () => {
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -35,13 +22,18 @@ const QuoteScreen = () => {
   ];
 
   return (
-    <View style={styles.container}>
-      <Header />
-       {/* <QuestionComponent />   */}
-      <InputSection/>
-      {/* <Caption /> */}
-      <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
-    </View>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <Header />
+        {/* <QuestionComponent /> */}
+        <InputSection />
+        {/* <Caption /> */}
+        <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -49,11 +41,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    padding: 20,
+   
   },
   scrollView: {
     flexGrow: 1,
-    paddingBottom: 20, // Prevents extra spacing
+    paddingBottom: moderateVerticalScale(20), // Add responsive padding at the bottom
+    paddingHorizontal: scale(10), // Horizontal padding adjusted to screen size
+  },
+  header: {
+    fontSize: moderateScale(24), // Adjust font size for header
+    color: '#fff',
+  },
+  inputSection: {
+    marginTop: verticalScale(15), // Vertical scaling for spacing
+    fontSize: moderateScale(16), // Font scaling
+  },
+  hashtagSection: {
+    marginTop: verticalScale(10), // Adjust spacing for hashtag section
+    fontSize: moderateScale(14),
   },
 });
 
