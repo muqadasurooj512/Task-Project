@@ -6,7 +6,7 @@ import Header from '../../components/header';
 import HashtagSection from '../../components/hashtagsSec';
 import { useRoute } from '@react-navigation/native';
 import ImageRowWithCaption from '../../components/captionWrite';
-import { scale, verticalScale } from 'react-native-size-matters'; // Import the scaling functions
+import { scale, verticalScale } from 'react-native-size-matters'; 
 
 const ImageShow = () => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -24,7 +24,7 @@ const ImageShow = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Header />
       <ScrollView contentContainerStyle={styles.scrollView} horizontal={true}>
         {mediaFiles.map((media, index) =>
@@ -43,7 +43,7 @@ const ImageShow = () => {
       </ScrollView>
       <ImageRowWithCaption />
       <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -51,23 +51,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    padding: scale(20), // Scaled padding
+    
   },
   image: {
-    width: scale(100), // Scaled width
-    height: verticalScale(250), // Scaled height for vertical scaling
-    borderRadius: scale(10), // Scaled borderRadius
-    margin: scale(5), // Scaled margin
+    width: scale(100),
+    height: verticalScale(250),
+    borderRadius: scale(10),
+    margin: scale(5),
   },
   video: {
-    width: scale(100), // Scaled width
-    height: verticalScale(300), // Scaled height for vertical scaling
-    borderRadius: scale(10), // Scaled borderRadius
-    margin: scale(5), // Scaled margin
+    width: scale(100),
+    height: verticalScale(300),
+    borderRadius: scale(10),
+    margin: scale(5),
   },
   scrollView: {
     flexDirection: 'row',
-    paddingBottom: verticalScale(20), // Scaled padding for bottom
+    paddingBottom: verticalScale(20),
   },
 });
 

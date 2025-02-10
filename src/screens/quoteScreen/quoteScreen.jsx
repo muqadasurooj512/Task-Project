@@ -45,19 +45,19 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexGrow: 1,
-    paddingBottom: moderateVerticalScale(20), // Add responsive padding at the bottom
-    paddingHorizontal: scale(10), // Horizontal padding adjusted to screen size
+    paddingBottom: moderateVerticalScale(20), 
+    paddingHorizontal: scale(10), 
   },
   header: {
-    fontSize: moderateScale(24), // Adjust font size for header
+    fontSize: moderateScale(24), 
     color: '#fff',
   },
   inputSection: {
-    marginTop: verticalScale(15), // Vertical scaling for spacing
-    fontSize: moderateScale(16), // Font scaling
+    marginTop: verticalScale(15), 
+    fontSize: moderateScale(16), 
   },
   hashtagSection: {
-    marginTop: verticalScale(10), // Adjust spacing for hashtag section
+    marginTop: verticalScale(10), 
     fontSize: moderateScale(14),
   },
 });
