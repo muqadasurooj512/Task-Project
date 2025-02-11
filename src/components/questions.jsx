@@ -1,20 +1,35 @@
+
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import Add from "../../assets/svg/add1.png"; // Ensure the path is correct
-import Delete from "../../assets/svg/delete.png"; // Ensure the path is correct
-
+// import Add from "../../assets/svg/add.png"; // Ensure the path is correct
+import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import Delete from "../../assets/svg/delete.svg"; // Ensure the path is correct
+import Add from "../../assets/svg/add3.svg"
+import Cross from "../../assets/svg/cross2.svg"
 const QuestionComponent = () => {
-  const [question, setQuestion] = useState("What’s your favorite dish?");
-  const [options, setOptions] = useState(["TV & Snacks", "Card games w friends"]);
+  // const [question, setQuestion] = useState("What’s your favorite dish?");
+  // const [options, setOptions] = useState(["TV & Snacks", "Card games w friends"]);
+  // const [isCustomQuestion, setIsCustomQuestion] = useState(false);
+  const defaultQuestion = "What’s your favorite dish?";
+  const defaultOptions = ["TV & Snacks", "Card games w friends"];
+
+  const [question, setQuestion] = useState(defaultQuestion);
+  const [options, setOptions] = useState(defaultOptions);
   const [isCustomQuestion, setIsCustomQuestion] = useState(false);
+  
 
   const addNewQuestion = () => {
     setQuestion("");
     setOptions([""]);
     setIsCustomQuestion(true);
   };
-
+  const cancelNewQuestion = () => {
+    if (isCustomQuestion) {
+      setQuestion(defaultQuestion);
+      setOptions(defaultOptions);
+      setIsCustomQuestion(false);
+    }
+  };
   const addOption = () => {
     if (options.length < 3) {
       setOptions([...options, ""]);
@@ -36,6 +51,12 @@ const QuestionComponent = () => {
     <View style={styles.container}>
       {/* Header Section */}
       <View style={styles.headerContainer}>
+         {/* Cancel new question */}
+         {isCustomQuestion && (
+          <TouchableOpacity onPress={cancelNewQuestion}>
+        <Cross width={moderateScale(24)} height={moderateScale(24)} />
+          </TouchableOpacity>
+        )}
         <TextInput
           style={styles.headerText}
           placeholder="What’s your question?"
@@ -45,7 +66,7 @@ const QuestionComponent = () => {
           multiline={true} // Allows wrapping text
         />
         <TouchableOpacity onPress={addNewQuestion} style={styles.iconContainer}>
-          <Image source={Add} style={styles.icon} />
+        <Add width={moderateScale(20)} height={moderateScale(20)} />
         </TouchableOpacity>
       </View>
 
@@ -61,24 +82,27 @@ const QuestionComponent = () => {
               onChangeText={(text) => updateOption(text, index)}
             />
             <TouchableOpacity onPress={() => deleteOption(index)} style={styles.deleteIconContainer}>
-              <Image source={Delete} style={styles.icon} />
+              <Delete width={moderateScale(15)} height={moderateScale(18)} />
             </TouchableOpacity>
           </View>
         ))}
       </View>
 
-      {/* Display message if 3 options are added */}
-      {options.length === 3 && (
-        <Text style={styles.maxOptionsText}>You have added 3 options.</Text>
-      )}
+      <View  style={styles.addoptionsWrapper}>
+        {/* Display message if 3 options are added */}
+        {options.length === 3 && (
+          <Text style={styles.maxOptionsText}>You have added 3 options.</Text>
+        )}
 
-      {/* Add Option Button (Visible only if options are less than 3) */}
-      {options.length < 3 && (
-        <TouchableOpacity style={styles.addButton} onPress={addOption}>
-          <Text style={styles.addButtonText}>Add Option</Text>
-          <Image source={Add} style={styles.icon} />
-        </TouchableOpacity>
-      )}
+        {/* Add Option Button (Visible only if options are less than 3) */}
+        {options.length < 3 && (
+          <TouchableOpacity style={styles.addButton} onPress={addOption}>
+            <Text style={styles.addButtonText}>Add Option</Text>
+       <Add width={moderateScale(15)} height={moderateScale(15)} />
+          </TouchableOpacity>
+        )}
+      </View>
+
     </View>
   );
 };
@@ -86,75 +110,71 @@ const QuestionComponent = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#000",
-    padding: scale(20),
+    // Scaled padding for responsiveness
   },
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: verticalScale(20),
+    justifyContent:"center",
+    marginHorizontal:moderateScale(15),
+    marginBottom: verticalScale(20), // Use verticalScale for consistent spacing
+    marginTop: verticalScale(10),
   },
   headerText: {
     color: "#FFF",
-    fontSize: moderateScale(18),
-    fontWeight: "bold",
+    fontSize:20, // Scaled font size
+   fontFamily:"Avenir-LT-Std-85-Heavy",
     flex: 1,
-    paddingVertical: verticalScale(10),
-    borderBottomWidth: 1,
-    borderBottomColor: "#444",
+    textAlign:"center",
     marginRight: scale(10),
-  },
-  iconContainer: {
-    padding: scale(5),
-  },
-  icon: {
-    width: scale(24),
-    height: scale(24),
-    resizeMode: "contain",
-  },
-  optionsWrapper: {
-    gap: moderateScale(10), // Adds consistent spacing between options
   },
   optionContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#222",
-    borderRadius: moderateScale(20),
-    paddingHorizontal: scale(15),
-    paddingVertical: verticalScale(8),
-    justifyContent: "space-between",
+    borderRadius: moderateScale(43), 
+    paddingHorizontal: scale(15), 
+    paddingVertical: verticalScale(5), 
+    justifyContent: "space-around",
+    marginBottom:moderateVerticalScale(15),
+    marginHorizontal:moderateScale(35)
   },
   optionInput: {
     color: "#FFF",
-    fontSize: moderateScale(16),
+    fontSize: 16, 
+    lineHeight: moderateScale(20), 
+    fontFamily:"Avenir-LT-Std-35-Light",
+    letterSpacing: 0, 
     flex: 1,
-    marginRight: scale(10),
+   
   },
-  deleteIconContainer: {
-    padding: scale(5),
-  },
+ 
   addButton: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    borderWidth: 1,
+    justifyContent: "center",
+    borderWidth: scale(2), // Scaled border width
     borderColor: "#FFF",
-    borderRadius: moderateScale(25),
-    paddingVertical: verticalScale(12),
-    paddingHorizontal: scale(20),
-    marginTop: verticalScale(10),
-    borderWidth: 2,
+    borderRadius: moderateScale(43), // Scaled border radius
+     paddingVertical: verticalScale(12), // Scaled vertical padding
+    marginHorizontal:moderateScale(40),
+     marginBottom:moderateVerticalScale(20),
   },
   addButtonText: {
     color: "#FFF",
-    fontSize: moderateScale(16),
-    marginRight: scale(5),
+    fontSize: 14, // Scaled font size
+    marginRight: 8, // Scaled margin
+   fontFamily:"Avenir-LT-Std-35-Light",
+    textAlign: "center",
   },
+ 
   maxOptionsText: {
     color: "#FF4444",
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(14), // Scaled font size
     textAlign: "center",
-    marginTop: verticalScale(5),
+    marginTop: verticalScale(5), // Scaled margin
   },
 });
+
 
 export default QuestionComponent;

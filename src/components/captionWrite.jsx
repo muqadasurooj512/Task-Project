@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 
 const ImageRowWithCaption = () => {
     return (
-        <View>
+        <View style={{ marginHorizontal:moderateScale(15), marginBottom:moderateVerticalScale(30)}}>
             {/* <View style={styles.imageRow}>
                 <Image source={myImage} style={styles.image} />
                 <Image source={myImage} style={styles.image} />
@@ -28,11 +28,9 @@ const styles = StyleSheet.create({
     captionInput: {
         borderColor: '#333',
         color: '#FFF',
-        fontSize: moderateScale(16), // Use moderateScale for font size
-        padding: moderateScale(15), // Use moderateScale for padding
-       
-        // height: verticalScale(50), // Use verticalScale for height
-        marginVertical:moderateVerticalScale(5)
+        fontSize: 14, // Use moderateScale for font size
+        // Use moderateScale for padding
+        fontFamily:"Avenir-LT-Std-35-Light",
     }
 });
 

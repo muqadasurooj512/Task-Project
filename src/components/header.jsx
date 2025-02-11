@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: verticalScale(20),
-    marginTop:moderateVerticalScale(50)
+    marginTop:moderateVerticalScale(60)
   },
   logo: {
     width: scale(90),
@@ -50,20 +50,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: scale(20),
-    paddingVertical: verticalScale(8),
-    borderRadius: moderateScale(25),
+    paddingHorizontal: scale(18),
+    paddingVertical: verticalScale(5),
+    borderRadius: moderateScale(43),
     justifyContent: 'center',
   },
   postButtonText: {
     color: '#FFF',
-    fontSize: moderateScale(16),
-    fontWeight: 'bold',
-    marginLeft: scale(5),
-    marginRight: scale(5),
+    fontSize: 16,
+    fontFamily:"AvenirLTStd65-Medium",
+    marginLeft: 5,
+    marginRight: 10,
   },
   icon: {
-    marginLeft: scale(10),
+    marginLeft: 10,
   },
 });
 

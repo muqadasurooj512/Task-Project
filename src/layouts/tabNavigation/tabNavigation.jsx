@@ -10,7 +10,7 @@ import Account from '../../../assets/svg/account.svg';
 import Quote from '../../../assets/svg/quote.svg';
 import Media from '../../../assets/svg/media.svg';
 import Poll from '../../../assets/svg/poll.svg';
-
+import LinearGradient from 'react-native-linear-gradient';
 import MediaPage from "../../screens/mediaPage/mediaPage";
 import ProfilePage from "../../screens/profilePage/profilePage";
 import SearchPage from "../../screens/searchPage/searchPage";
@@ -57,21 +57,24 @@ const FloatingActionButton = ({ onMediaPress, onPollPress, onQuotePress }) => {
 
   return (
     <View style={styles.fabContainer}>
+     
       <Animated.View style={[styles.option, getStyle(-Math.PI / 3, 150)]}>
+     
         <TouchableOpacity style={styles.fabOption} onPress={onQuotePress}>
-          <Poll width={moderateScale(25)} height={moderateScale(25)} />
+          
+          <Poll width={moderateScale(24)} height={moderateScale(24)} />
           <Text style={styles.label}>Poll</Text>
         </TouchableOpacity>
       </Animated.View>
       <Animated.View style={[styles.option, getStyle(-Math.PI / 2, 150)]}>
         <TouchableOpacity style={styles.fabOption} onPress={onMediaPress}>
-          <Media width={moderateScale(25)} height={moderateScale(25)} />
+          <Media width={moderateScale(24)} height={moderateScale(24)} />
           <Text style={styles.label}>Media</Text>
         </TouchableOpacity>
       </Animated.View>
       <Animated.View style={[styles.option, getStyle(-2 * Math.PI / 3, 150)]}>
         <TouchableOpacity style={styles.fabOption} onPress={onPollPress}>
-          <Quote width={moderateScale(25)} height={moderateScale(25)} />
+          <Quote width={moderateScale(24)} height={moderateScale(24)} />
           <Text style={styles.label}>Quote</Text>
         </TouchableOpacity>
       </Animated.View>
@@ -79,6 +82,7 @@ const FloatingActionButton = ({ onMediaPress, onPollPress, onQuotePress }) => {
       <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="white" />
         {/* <SvgXml uri={expanded ? require('../../assets/svg/closeIcon.svg') : require('../../assets/svg/addIcon.svg')} width={moderateScale(30)} height={moderateScale(30)} /> */}
       </TouchableOpacity>
+      
     </View>
   );
 };
@@ -133,7 +137,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Home width={moderateScale(24)} height={moderateScale(24)} />
+            <Home width={moderateScale(22)} height={moderateScale(22)} />
           ),
         }}
       />
@@ -143,7 +147,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Shop width={moderateScale(24)} height={moderateScale(24)} />
+            <Shop width={moderateScale(22)} height={moderateScale(22)} />
           ),
         }}
       />
@@ -168,7 +172,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Search width={moderateScale(24)} height={moderateScale(24)} />
+            <Search width={moderateScale(22)} height={moderateScale(22)} />
           ),
         }}
       />
@@ -178,7 +182,7 @@ const BottomNavigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
-            <Account width={moderateScale(24)} height={moderateScale(24)} />
+            <Account width={moderateScale(22)} height={moderateScale(22)} />
           ),
         }}
       />
@@ -210,7 +214,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(114, 116, 117, 0.6)",
     borderRadius: 10,
     justifyContent: "center",
-    borderColor:"rgba(57, 14, 82, 0.6)",
+      borderColor:"hsla(263, 51.10%, 35.30%, 0.60)",
     borderWidth:2,
     alignItems: "center",
     marginBottom: moderateScale(10),

@@ -26,14 +26,13 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-	  <!-- Do not change NSAllowsArbitraryLoads to true, or you will risk app rejection! -->
 		<key>NSAllowsArbitraryLoads</key>
 		<false/>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -48,5 +47,19 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Avenir-LT-Std-35-Light.otf</string>
+		<string>Avenir-LT-Std-85-Heavy.otf</string>
+		<string>AvenirLTStd-45-Book.otf</string>
+		<string>AvenirLTStd-55-Oblique.otf</string>
+		<string>AvenirLTStd-95-Black-Oblique.otf</string>
+		<string>AvenirLTStd45Book-Oblique.otf</string>
+		<string>AvenirLTStd55-Roman.otf</string>
+		<string>AvenirLTStd65-Medium.otf</string>
+		<string>AvenirLTStd65Medium-Oblique.otf</string>
+		<string>AvenirLTStd85Heavy-Oblique.otf</string>
+		<string>AvenirLTStd95-Black.otf</string>
+	</array>
 </dict>
 </plist>

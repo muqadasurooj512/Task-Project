@@ -29,6 +29,8 @@ const PollScreen = () => {
         <QuestionComponent />
         {/* <InputSection /> */}
         {/* <Caption /> */}
+        <View style={{ borderBottomWidth: 2, borderBottomColor: '#222' , marginBottom:verticalScale(15), marginHorizontal:moderateScale(8)}}></View>
+
         <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
       </ScrollView>
     </View>

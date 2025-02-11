@@ -24,7 +24,7 @@ const ImageShow = () => {
   ];
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Header />
       <ScrollView contentContainerStyle={styles.scrollView} horizontal={true}>
         {mediaFiles.map((media, index) =>
@@ -41,9 +41,12 @@ const ImageShow = () => {
           )
         )}
       </ScrollView>
-      <ImageRowWithCaption />
-      <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
-    </ScrollView>
+      <ScrollView  contentContainerStyle={styles.scroll} horizontal={false}>
+        <ImageRowWithCaption />
+        <View style={{ borderBottomWidth: 2, borderBottomColor: '#222', marginBottom: verticalScale(15), marginHorizontal: moderateScale(8), }}></View>
+        <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
+      </ScrollView>
+    </View>
   );
 };
 
@@ -51,26 +54,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    paddingBottom: moderateVerticalScale(20), 
-        paddingHorizontal: scale(10), 
-    
+
+    paddingHorizontal: scale(10),
+
   },
   image: {
-    width: scale(100),
-    height: verticalScale(250),
-    borderRadius: scale(10),
-    margin: scale(5),
+    width: scale(116),
+    height: verticalScale(144),
+    marginTop: moderateVerticalScale(20),
+    marginHorizontal: moderateScale(5)
   },
   video: {
     width: scale(100),
     height: verticalScale(300),
-    borderRadius: scale(10),
-    margin: scale(5),
+    marginTop: moderateVerticalScale(20),
+    marginHorizontal: moderateScale(5)
+
   },
   scrollView: {
     flexDirection: 'row',
-    
+
   },
+  
 });
 
 export default ImageShow;
