@@ -1,14 +1,14 @@
 
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, Image, ScrollView, Alert,TouchableOpacity } from 'react-native';
 import Video from 'react-native-video';
 import Header from '../../components/header';
 import HashtagSection from '../../components/hashtagsSec';
 import { useRoute } from '@react-navigation/native';
 import ImageRowWithCaption from '../../components/captionWrite';
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-
-const ImageShow = () => {
+import Icon from 'react-native-vector-icons/Ionicons'; 
+const ImageShow = ({navigation}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const route = useRoute();
   const { mediaFiles = [] } = route.params || {};
@@ -16,17 +16,22 @@ const ImageShow = () => {
   const toggleTag = (tag) => {
     setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
   };
-
+ 
   const tags = [
     'Comedy', 'Economic', 'Education', 'Entertainment', 'Inspirational',
     'Fashion', 'Food & Nutrition', 'Music', 'Politics', 'Pop Culture',
     'Real Estate', 'Religion', 'Satire', 'Science', 'Sports', 'Tech', 'Travel', 'Roll the Dice'
   ];
-
+  const onCrossIconPress = () => {
+    navigation.navigate('BottomNavigation'); // Navigate to 'MediaPost' screen when the cross icon is pressed
+  };
   return (
     <View style={styles.container}>
-      <Header />
+      {/* <Header /> */}
+      <Header showCrossIcon={true}
+       onCrossIconPress={onCrossIconPress} /> {/* Cross icon will be shown */}
       <ScrollView contentContainerStyle={styles.scrollView} horizontal={true}>
+      
         {mediaFiles.map((media, index) =>
           media.type === 'photo' ? (
             <Image key={index} source={{ uri: media.path }} style={styles.image} />
@@ -61,13 +66,13 @@ const styles = StyleSheet.create({
   image: {
     width: scale(116),
     height: verticalScale(144),
-    marginTop: moderateVerticalScale(20),
+    marginTop: moderateVerticalScale(30),
     marginHorizontal: moderateScale(5)
   },
   video: {
-    width: scale(100),
-    height: verticalScale(300),
-    marginTop: moderateVerticalScale(20),
+    width: scale(116),
+    height: verticalScale(144),
+    marginTop: moderateVerticalScale(30),
     marginHorizontal: moderateScale(5)
 
   },
@@ -75,7 +80,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
 
   },
-  
+  backButton: {
+    position: 'absolute',
+    // top: 20,
+    left: 10,
+    zIndex: 10,
+  },
 });
 
 export default ImageShow;
+

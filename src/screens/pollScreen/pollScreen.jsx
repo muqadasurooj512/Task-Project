@@ -7,7 +7,7 @@ import HashtagSection from '../../components/hashtagsSec';
 import Caption from "../../components/captionWrite";
 import InputSection from '../../components/inputSection';
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-const PollScreen = () => {
+const PollScreen = ({navigation}) => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const toggleTag = (tag) => {
@@ -21,11 +21,16 @@ const PollScreen = () => {
     'Fashion', 'Food & Nutrition', 'Music', 'Politics', 'Pop Culture',
     'Real Estate', 'Religion', 'Satire', 'Science', 'Sports', 'Tech', 'Travel', 'Roll the Dice'
   ];
-
+  const onCrossIconPress = () => {
+    navigation.navigate('BottomNavigation'); // Navigate to 'MediaPost' screen when the cross icon is pressed
+  };
   return (
     <View style={styles.container}>
+   {/* <Header showCrossIcon={true}
+       onCrossIconPress={onCrossIconPress} /> */}
+       <Header/>
       <ScrollView style={styles.scrollView}>
-        <Header />
+        
         <QuestionComponent />
         {/* <InputSection /> */}
         {/* <Caption /> */}
@@ -41,11 +46,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    paddingHorizontal: scale(10),
   },
   scrollView: {
     flexGrow: 1,
        paddingBottom: moderateVerticalScale(20), 
-        paddingHorizontal: scale(10), 
+         
   },
 });
 

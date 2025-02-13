@@ -10,7 +10,6 @@ import Account from '../../../assets/svg/account.svg';
 import Quote from '../../../assets/svg/quote.svg';
 import Media from '../../../assets/svg/media.svg';
 import Poll from '../../../assets/svg/poll.svg';
-import LinearGradient from 'react-native-linear-gradient';
 import MediaPage from "../../screens/mediaPage/mediaPage";
 import ProfilePage from "../../screens/profilePage/profilePage";
 import SearchPage from "../../screens/searchPage/searchPage";

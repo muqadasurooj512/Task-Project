@@ -6,7 +6,7 @@ import Header from '../../components/header';
 import HashtagSection from '../../components/hashtagsSec';
 import InputSection from '../../components/inputSection';
 
-const QuoteScreen = () => {
+const QuoteScreen = ({navigation}) => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const toggleTag = (tag) => {
@@ -20,14 +20,18 @@ const QuoteScreen = () => {
     'Fashion', 'Food & Nutrition', 'Music', 'Politics', 'Pop Culture',
     'Real Estate', 'Religion', 'Satire', 'Science', 'Sports', 'Tech', 'Travel', 'Roll the Dice'
   ];
-
+  const onCrossIconPress = () => {
+    navigation.navigate('BottomNavigation'); // Navigate to 'MediaPost' screen when the cross icon is pressed
+  };
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      <Header/>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Header />
+      {/* <Header showCrossIcon={true}
+       onCrossIconPress={onCrossIconPress} /> */}
         {/* <QuestionComponent /> */}
         <InputSection />
         {/* <Caption /> */}
