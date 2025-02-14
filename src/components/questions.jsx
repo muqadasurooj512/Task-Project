@@ -1,21 +1,19 @@
 
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from "react-native";
-// import Add from "../../assets/svg/add.png"; // Ensure the path is correct
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import Delete from "../../assets/svg/delete.svg"; // Ensure the path is correct
+import Delete from "../../assets/svg/delete.svg"; 
 import Add from "../../assets/svg/add3.svg"
 import Cross from "../../assets/svg/cross2.svg"
 const QuestionComponent = () => {
 
     const [question, setQuestion] = useState("");
     const [options, setOptions] = useState([""]);
-    const [isAddingSecondQuestion, setIsAddingSecondQuestion] = useState(false); // Track if adding second question
-
+    const [isAddingSecondQuestion, setIsAddingSecondQuestion] = useState(false); 
     const addNewQuestion = () => {
         setQuestion("");
         setOptions([""]);
-        setIsAddingSecondQuestion(true); // Enable delete functionality for second question
+        setIsAddingSecondQuestion(true); 
     };
     const addOption = () => {
         setOptions([...options, ""]);
@@ -36,7 +34,7 @@ const QuestionComponent = () => {
         if (isAddingSecondQuestion) {
             setQuestion("");
             setOptions([""]);
-            setIsAddingSecondQuestion(false); // Reset to first question state
+            setIsAddingSecondQuestion(false); 
         }
     }
     return (
@@ -96,19 +94,19 @@ const QuestionComponent = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#000",
-        // Scaled padding for responsiveness
+    
     },
     headerContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
         marginHorizontal: moderateScale(15),
-        marginBottom: verticalScale(20), // Use verticalScale for consistent spacing
+        marginBottom: verticalScale(20), 
         marginTop: verticalScale(10),
     },
     headerText: {
         color: "#FFF",
-        fontSize: 20, // Scaled font size
+        fontSize: 20, 
         fontFamily: "Avenir-LT-Std-85-Heavy",
         flex: 1,
         textAlign: "center",
@@ -140,26 +138,26 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        borderWidth: scale(2), // Scaled border width
+        borderWidth: scale(2), 
         borderColor: "#FFF",
-        borderRadius: moderateScale(43), // Scaled border radius
-        paddingVertical: verticalScale(12), // Scaled vertical padding
+        borderRadius: moderateScale(43), 
+        paddingVertical: verticalScale(12), 
         marginHorizontal: moderateScale(40),
         marginBottom: moderateVerticalScale(20),
     },
     addButtonText: {
         color: "#FFF",
-        fontSize: 14, // Scaled font size
-        marginRight: 8, // Scaled margin
+        fontSize: 14, 
+        marginRight: 8, 
         fontFamily: "Avenir-LT-Std-35-Light",
         textAlign: "center",
     },
 
     maxOptionsText: {
         color: "#FF4444",
-        fontSize: moderateScale(14), // Scaled font size
+        fontSize: moderateScale(14), 
         textAlign: "center",
-        marginTop: verticalScale(5), // Scaled margin
+        marginTop: verticalScale(5), 
     },
 });
 

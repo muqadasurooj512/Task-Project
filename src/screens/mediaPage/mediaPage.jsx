@@ -62,16 +62,16 @@ const MediaPage = () => {
 
   const handleAnswerSelect = (answerIndex) => {
     const updatedPollResults = { ...pollResults };
-    updatedPollResults[answerIndex] += 1; // Increment the count for the selected answer
+    updatedPollResults[answerIndex] += 1; 
     setPollResults(updatedPollResults);
-    setTotalVotes(totalVotes + 1); // Increment total votes
-    setSelectedAnswer(answerIndex); // Highlight the selected answer
+    setTotalVotes(totalVotes + 1); 
+    setSelectedAnswer(answerIndex); 
   };
 
 
   const renderItem = ({ item }) => {
     // Check if answers exist and if it's an array, default to empty array
-    const answers = item.answers || []; // Ensure answers is always an array
+    const answers = item.answers || []; 
 
     // Calculate the percentage for each answer
     const answerPercentages = answers.map((_, index) => {
@@ -100,7 +100,7 @@ const MediaPage = () => {
                       <TouchableOpacity
                         style={[
                           styles.answerBox,
-                          selectedAnswer === index && { borderColor: 'blue' }, // Highlight selected answer
+                          selectedAnswer === index && { borderColor: 'blue' }, 
                         ]}
                         onPress={() => handleAnswerSelect(index)}
                       >
@@ -192,14 +192,12 @@ const MediaPage = () => {
 };
 
 const styles = StyleSheet.create({
-  // ... (existing styles)
   answerPercentage: {
     fontSize: 14,
-    textAlign: 'right', // Align percentage to the right
+    textAlign: 'right', 
     color: 'white',
     fontFamily: "Avenir-LT-Std-35-Light",
     marginRight: 10,
-    // flex: 0.3,
   },
   pageContainer: {
     width: '100%',
@@ -213,8 +211,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   textContainer: {
-    // width: '100%',
-    // height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -236,7 +232,7 @@ const styles = StyleSheet.create({
   },
   answersContainer: {
     marginTop: verticalScale(20),
-    // width: '100%',
+  
 
   },
   answerRow: {
@@ -246,7 +242,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   answerBox: {
-    flexDirection: 'row',  // Ensures both answer and percentage are in a row
+    flexDirection: 'row', 
     backgroundColor: 'transparent',
     paddingVertical: scale(15),
     borderRadius: moderateScale(43),
@@ -262,15 +258,7 @@ const styles = StyleSheet.create({
     color: 'white',
     flex: 1,
   },
-  // answerPercentage: {
-  //   fontSize: 14,
-  //   textAlign: 'right',  // Align percentage to the right
-  //   color: 'white',
-  //   fontFamily:"Avenir-LT-Std-35-Light",
-
-  //   marginRight: 10, 
-  //   flex: 0.3, 
-  // },
+ 
   overlayContent: {
     position: 'absolute',
     top: 0,

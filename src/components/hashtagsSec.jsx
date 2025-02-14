@@ -7,10 +7,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const { width } = Dimensions.get('window');
 
 const HashtagSection = ({ tags, selectedTags, toggleTag }) => {
-  const [isBoxVisible, setBoxVisible] = useState(false);  // State to control visibility of the box
+  const [isBoxVisible, setBoxVisible] = useState(false);  
 
   const toggleBox = () => {
-    setBoxVisible(!isBoxVisible);  // Toggle the box visibility on click
+    setBoxVisible(!isBoxVisible);  
   };
 
   return (
@@ -61,16 +61,16 @@ const HashtagSection = ({ tags, selectedTags, toggleTag }) => {
 
 const styles = StyleSheet.create({
   hashtagContainer: {
-    flexDirection: 'row', // Align items horizontally
-    justifyContent:'space-evenly', // Space between the containers
-   
+    flexDirection: 'row', 
+    justifyContent:'space-between', 
+    marginHorizontal:moderateVerticalScale(15),
     marginBottom: verticalScale(20),
-    // marginHorizontal:moderateScale(10)
+  
   },
   hiddenHashtagsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    // marginHorizontal:moderateScale(10)
+   
   },
   hiddenHashtagsText: {
     color: '#FFF',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   algorithmScoreContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    //  marginRight:50
+  
   },
   algorithmScoreText: {
     color: '#FFF',
@@ -92,20 +92,18 @@ const styles = StyleSheet.create({
     color: '#32CD32',
     fontFamily:"AvenirLTStd65-Medium",
     fontSize: 14,
-    // left:scale(5),
     alignSelf:"center"
     
   },
   icon: {
-    marginLeft: 3, // Adds space between text and icon
-    // marginRight: 10,
-    // marginHorizontal:moderateScale(12)
+    marginLeft: 3, 
   },
 
   tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
      justifyContent: 'space-between',
+     marginHorizontal:moderateScale(5)
   },
   tag: {
     backgroundColor: '#222',
@@ -131,11 +129,10 @@ const styles = StyleSheet.create({
     fontFamily: "Avenir-LT-Std-35-Light",
     flexWrap: 'wrap',
     flex: 1,
-    overflow: 'hidden',      // Ensure no overflow
-    textOverflow: 'ellipsis', // Optional, if truncating is needed
+    overflow: 'hidden',      
+    textOverflow: 'ellipsis', 
   },
 
-  // Info box styles
   infoBox: {
     marginTop: verticalScale(-26),
     paddingVertical: moderateVerticalScale(10),

@@ -20,21 +20,24 @@ const QuoteScreen = ({navigation}) => {
     'Fashion', 'Food & Nutrition', 'Music', 'Politics', 'Pop Culture',
     'Real Estate', 'Religion', 'Satire', 'Science', 'Sports', 'Tech', 'Travel', 'Roll the Dice'
   ];
+  
   const onCrossIconPress = () => {
-    navigation.navigate('BottomNavigation'); // Navigate to 'MediaPost' screen when the cross icon is pressed
+    navigation.reset({
+      index: 0,  
+      routes: [{ name: 'BottomNavigation' }], 
+    });
   };
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <Header/>
+       <Header showCrossIcon={true}
+       onCrossIconPress={onCrossIconPress} />
+      
       <ScrollView contentContainerStyle={styles.scrollView}>
-      {/* <Header showCrossIcon={true}
-       onCrossIconPress={onCrossIconPress} /> */}
-        {/* <QuestionComponent /> */}
         <InputSection />
-        {/* <Caption /> */}
+      
         <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
       </ScrollView>
     </KeyboardAvoidingView>
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
     paddingBottom: moderateVerticalScale(20), 
-    paddingHorizontal: scale(10), 
+
   },
   header: {
     fontSize: moderateScale(24), 

@@ -21,19 +21,22 @@ const PollScreen = ({navigation}) => {
     'Fashion', 'Food & Nutrition', 'Music', 'Politics', 'Pop Culture',
     'Real Estate', 'Religion', 'Satire', 'Science', 'Sports', 'Tech', 'Travel', 'Roll the Dice'
   ];
+
   const onCrossIconPress = () => {
-    navigation.navigate('BottomNavigation'); // Navigate to 'MediaPost' screen when the cross icon is pressed
+    navigation.reset({
+      index: 0,  
+      routes: [{ name: 'BottomNavigation' }],  
+    });
   };
   return (
     <View style={styles.container}>
-   {/* <Header showCrossIcon={true}
-       onCrossIconPress={onCrossIconPress} /> */}
-       <Header/>
+   <Header showCrossIcon={true}
+       onCrossIconPress={onCrossIconPress} />
+    
       <ScrollView style={styles.scrollView}>
         
         <QuestionComponent />
-        {/* <InputSection /> */}
-        {/* <Caption /> */}
+       
         <View style={{ borderBottomWidth: 2, borderBottomColor: '#222' , marginBottom:verticalScale(15), marginHorizontal:moderateScale(8)}}></View>
 
         <HashtagSection tags={tags} selectedTags={selectedTags} toggleTag={toggleTag} />
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    paddingHorizontal: scale(10),
+    
   },
   scrollView: {
     flexGrow: 1,

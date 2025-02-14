@@ -79,7 +79,7 @@ const FloatingActionButton = ({ onMediaPress, onPollPress, onQuotePress }) => {
       </Animated.View>
       <TouchableOpacity style={styles.simpleFab} onPress={toggleMenu}>
       <Icon name={expanded ? "close" : "add"} size={moderateScale(30)} color="white" />
-        {/* <SvgXml uri={expanded ? require('../../assets/svg/closeIcon.svg') : require('../../assets/svg/addIcon.svg')} width={moderateScale(30)} height={moderateScale(30)} /> */}
+       
       </TouchableOpacity>
       
     </View>
@@ -108,7 +108,7 @@ const BottomNavigation = () => {
         headerShown: false,
         tabBarStyle: {
           position: "absolute",
-          backgroundColor: "black", // Black background for bottom navigation
+          backgroundColor: "black", 
           height: verticalScale(70),
           shadowColor: "black",
           shadowOpacity: 0.1,
@@ -120,14 +120,14 @@ const BottomNavigation = () => {
         tabBarLabelStyle: {
           fontSize: moderateScale(12),
           marginTop: 2,
-          color: "#fff", // White label for all tabs
+          color: "#fff", 
         },
         tabBarIconStyle: {
           marginTop: 8,
-          color: "white", // White color for all icons
+          color: "white", 
         },
-        tabBarActiveTintColor: "white", // White active icon color
-        tabBarInactiveTintColor: "white", // White inactive icon color
+        tabBarActiveTintColor: "white", 
+        tabBarInactiveTintColor: "white", 
       }}
     >
       <Tab.Screen

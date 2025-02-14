@@ -7,7 +7,6 @@ import HashtagSection from '../../components/hashtagsSec';
 import { useRoute } from '@react-navigation/native';
 import ImageRowWithCaption from '../../components/captionWrite';
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/Ionicons'; 
 const ImageShow = ({navigation}) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const route = useRoute();
@@ -22,14 +21,18 @@ const ImageShow = ({navigation}) => {
     'Fashion', 'Food & Nutrition', 'Music', 'Politics', 'Pop Culture',
     'Real Estate', 'Religion', 'Satire', 'Science', 'Sports', 'Tech', 'Travel', 'Roll the Dice'
   ];
+
   const onCrossIconPress = () => {
-    navigation.navigate('BottomNavigation'); // Navigate to 'MediaPost' screen when the cross icon is pressed
+    navigation.reset({
+      index: 0,  
+      routes: [{ name: 'BottomNavigation' }], 
+    });
   };
   return (
     <View style={styles.container}>
-      {/* <Header /> */}
+     
       <Header showCrossIcon={true}
-       onCrossIconPress={onCrossIconPress} /> {/* Cross icon will be shown */}
+       onCrossIconPress={onCrossIconPress} /> 
       <ScrollView contentContainerStyle={styles.scrollView} horizontal={true}>
       
         {mediaFiles.map((media, index) =>
@@ -60,14 +63,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
 
-    paddingHorizontal: scale(10),
-
   },
   image: {
     width: scale(116),
     height: verticalScale(144),
     marginTop: moderateVerticalScale(30),
-    marginHorizontal: moderateScale(5)
+    marginHorizontal: moderateScale(10)
   },
   video: {
     width: scale(116),
@@ -82,7 +83,6 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    // top: 20,
     left: 10,
     zIndex: 10,
   },

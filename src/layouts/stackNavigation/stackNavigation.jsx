@@ -10,7 +10,6 @@ const Stack = createNativeStackNavigator();
 const StackNavigation = () => {
     return (
         <Stack.Navigator
-            // initialRouteName={initialRoute}
             screenOptions={{ headerShown: false }}
         >
                <Stack.Screen name="BottomNavigation" component={BottomNavigation} />

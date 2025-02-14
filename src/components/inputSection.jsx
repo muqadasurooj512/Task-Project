@@ -6,7 +6,6 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 const InputSection = ({ text, setText }) => {
   return (
     <View style={styles.inputContainer}>
-      {/* <Text style={styles.inputLabel}>What are your thoughts?</Text> */}
       <TextInput
         style={styles.input}
         placeholder="What are your thoughts?"
@@ -22,24 +21,25 @@ const InputSection = ({ text, setText }) => {
 const styles = StyleSheet.create({
   inputContainer: {
     position: 'relative',
+    marginHorizontal:moderateScale(10)
   },
   inputLabel: {
     color: '#ffffff',
-    fontSize: scale(14), // Use scale for font size
-    marginBottom: verticalScale(5), // Use verticalScale for margin
+    fontSize: scale(14), 
+    marginBottom: verticalScale(5), 
   },
   input: {
     backgroundColor: '#000000',
   color: '#FFF',
-  fontSize: moderateScale(16), // Use moderateScale for font size
-  padding: moderateScale(10), // Use moderateScale for padding
-  borderRadius: moderateScale(15), // Use moderateScale for border radius
-  height: verticalScale(200), // Use verticalScale for height
-  marginBottom: verticalScale(20), // Use verticalScale for margin
+  fontSize: moderateScale(16), 
+  padding: moderateScale(10), 
+  borderRadius: moderateScale(15), 
+  height: verticalScale(200), 
+  marginBottom: verticalScale(20), 
   textAlignVertical: 'top',
   fontFamily: "AvenirLTStd65-Medium",
-  borderBottomWidth: 1, // Adds a bottom border
-  borderBottomColor: '#808080', // Gray color for the bottom border
+  borderBottomWidth: 1, 
+  borderBottomColor: '#808080', 
   },
 });
 
