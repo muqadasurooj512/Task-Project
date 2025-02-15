@@ -6,29 +6,25 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 import Arrow from '../../assets/svg/arrow.svg';
 import Cross from "../../assets/svg/cross2.svg"
-const Header = ({ showCrossIcon, onCrossIconPress }) => {
+
+const Header = ({ showCrossIcon, onCrossIconPress, onSubmit, isPostEnabled }) => {
   return (
     <View style={styles.header}>
       {showCrossIcon && (
-        <TouchableOpacity onPress={onCrossIconPress} style={styles.iconContainer}>
-         <Cross width={moderateScale(30)} height={moderateScale(30)} />
+        <TouchableOpacity onPress={onCrossIconPress} style={styles.logoContainer}>
+          <Image source={require('../../assets/svg/log2.png')} style={styles.logo} />
         </TouchableOpacity>
       )}
 
-      {/* Logo Image (Center it using flex) */}
-      <View style={styles.logoContainer}>
-        <Image source={require('../../assets/svg/log2.png')} style={styles.logo} />
-      </View>
-
       {/* Gradient Border Effect */}
       <LinearGradient
-        colors={['#000AFF', '#6F00FF', '#FF0000']}
+        colors={isPostEnabled ? ["#000AFF", "#6F00FF", "#FF0000"] : ["#555", "#555", "#555"]}
         style={styles.gradientBorder}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
         {/* Post Button */}
-        <TouchableOpacity style={styles.postButton} onPress={() => console.log('Posted!')}>
+        <TouchableOpacity style={styles.postButton} onPress={onSubmit} disabled={!isPostEnabled}>
           <Text style={styles.postButtonText}>Post</Text>
           <Arrow width={moderateScale(12)} height={moderateScale(14)} />
         </TouchableOpacity>
@@ -44,15 +40,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: verticalScale(20),
     marginTop: moderateVerticalScale(60),
-    paddingHorizontal: scale(10), 
+    paddingHorizontal: scale(15),
   },
   iconContainer: {
-    position: 'absolute', 
-    left: scale(10), 
+    position: 'absolute',
+    left: scale(10),
   },
   logoContainer: {
-    flex: 1, 
-    marginLeft:moderateScale(35)
+    flex: 1,
   },
   logo: {
     width: scale(80),

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const InputSection = ({ text, setText }) => {
@@ -11,8 +11,8 @@ const InputSection = ({ text, setText }) => {
         placeholder="What are your thoughts?"
         placeholderTextColor="#ffffff"
         multiline
-        value={text}
-        onChangeText={setText}
+        value={text} 
+        onChangeText={setText} 
       />
     </View>
   );
@@ -21,25 +21,20 @@ const InputSection = ({ text, setText }) => {
 const styles = StyleSheet.create({
   inputContainer: {
     position: 'relative',
-    marginHorizontal:moderateScale(10)
-  },
-  inputLabel: {
-    color: '#ffffff',
-    fontSize: scale(14), 
-    marginBottom: verticalScale(5), 
+    marginHorizontal: moderateScale(10),
   },
   input: {
     backgroundColor: '#000000',
-  color: '#FFF',
-  fontSize: moderateScale(16), 
-  padding: moderateScale(10), 
-  borderRadius: moderateScale(15), 
-  height: verticalScale(200), 
-  marginBottom: verticalScale(20), 
-  textAlignVertical: 'top',
-  fontFamily: "AvenirLTStd65-Medium",
-  borderBottomWidth: 1, 
-  borderBottomColor: '#808080', 
+    color: '#FFF',
+    fontSize: moderateScale(16),
+    padding: moderateScale(10),
+    borderRadius: moderateScale(15),
+    height: verticalScale(200),
+    marginBottom: verticalScale(20),
+    textAlignVertical: 'top',
+    fontFamily: "AvenirLTStd65-Medium",
+    borderBottomWidth: 1,
+    borderBottomColor: '#808080',
   },
 });
 

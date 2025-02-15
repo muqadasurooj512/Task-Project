@@ -62,8 +62,7 @@ const HashtagSection = ({ tags, selectedTags, toggleTag }) => {
 const styles = StyleSheet.create({
   hashtagContainer: {
     flexDirection: 'row', 
-    justifyContent:'space-between', 
-    marginHorizontal:moderateVerticalScale(15),
+    justifyContent:'space-evenly', 
     marginBottom: verticalScale(20),
   
   },
