@@ -22,6 +22,7 @@ import Reshare from '../../../assets/svg/reshare.svg';
 import Save from '../../../assets/svg/saved.svg';
 import Send2 from '../../../assets/svg/send2.svg';
 import Song from '../../../assets/svg/song.svg';
+import Checkmark from '../../../assets/svg/checkmark.svg'; 
 
 const { width } = Dimensions.get('window');
 
@@ -62,23 +63,37 @@ const MediaPage = () => {
 
   const handleAnswerSelect = (answerIndex) => {
     const updatedPollResults = { ...pollResults };
-    updatedPollResults[answerIndex] += 1; 
+    updatedPollResults[answerIndex] += 1;
     setPollResults(updatedPollResults);
-    setTotalVotes(totalVotes + 1); 
-    setSelectedAnswer(answerIndex); 
+    setTotalVotes(totalVotes + 1);
+    setSelectedAnswer(answerIndex);
   };
 
-
-  const renderItem = ({ item }) => {
+//  
+  
+const renderItem = ({ item }) => {
     // Check if answers exist and if it's an array, default to empty array
-    const answers = item.answers || []; 
-
-    // Calculate the percentage for each answer
+    const answers = item.answers || [];
+  
+    // Function to map percentage to a color (Blue to White)
+   
     const answerPercentages = answers.map((_, index) => {
-      const percentage = totalVotes > 0 ? (pollResults[index] / totalVotes) * 100 : 0;
-      return percentage;
-    });
-
+        const percentage = totalVotes > 0 ? (pollResults[index] / totalVotes) * 100 : 0;
+        return percentage;
+      });
+    
+      // Find the index of the answer with the highest percentage
+      const highestPercentageIndex = answerPercentages.indexOf(Math.max(...answerPercentages));
+    
+      const getBackgroundColor = (index) => {
+        if (selectedAnswer === index) {
+          return '#6F00FF'; // Blue for selected answer
+        }
+        return 'rgb(231, 214, 214)'; // White for unselected answers
+      };
+      
+    
+  
     return (
       <View style={styles.pageContainer}>
         {item.type === 'image' ? (
@@ -97,13 +112,22 @@ const MediaPage = () => {
                   const percentage = answerPercentages[index];
                   return (
                     <View key={index} style={styles.answerRow}>
-                      <TouchableOpacity
+                     <TouchableOpacity
+                      style={styles.answerBox}
+                      onPress={() => handleAnswerSelect(index)}
+                    >
+                      <View
                         style={[
-                          styles.answerBox,
-                          selectedAnswer === index && { borderColor: 'blue' }, 
+                          styles.answerFill,
+                          { width: `${percentage}%` }, // Dynamically set width based on percentage
+                          { backgroundColor: getBackgroundColor(index, percentage) }, // Apply the color
                         ]}
-                        onPress={() => handleAnswerSelect(index)}
-                      >
+                      />
+                        {/* Show checkmark only when the answer is selected */}
+                        {selectedAnswer === index && (
+                         <Checkmark width={moderateScale(20)} height={moderateScale(20)}
+                          style={{marginLeft:moderateScale(10)}} />// Checkmark visible only when the answer is selected
+                        )}
                         <Text style={styles.answer}>{answer}</Text>
                         {totalVotes > 0 && (
                           <Text style={styles.answerPercentage}>
@@ -118,7 +142,8 @@ const MediaPage = () => {
             </LinearGradient>
           </View>
         )}
-
+  
+        {/* Overlay Content */}
         <View style={styles.overlayContent}>
           <View style={styles.topBar}>
             <Logo width={moderateScale(44)} height={moderateScale(44)} />
@@ -176,6 +201,9 @@ const MediaPage = () => {
     );
   };
 
+  
+     
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
@@ -194,7 +222,7 @@ const MediaPage = () => {
 const styles = StyleSheet.create({
   answerPercentage: {
     fontSize: 14,
-    textAlign: 'right', 
+    textAlign: 'right',
     color: 'white',
     fontFamily: "Avenir-LT-Std-35-Light",
     marginRight: 10,
@@ -228,37 +256,47 @@ const styles = StyleSheet.create({
     fontFamily: "AvenirLTStd-45-Book",
     textAlign: 'center',
     lineHeight: 36,
-
   },
   answersContainer: {
     marginTop: verticalScale(20),
-  
-
+    
   },
   answerRow: {
     flexDirection: 'row',
     marginBottom: verticalScale(15),
     alignItems: "center",
+    
     justifyContent: "center",
+   
   },
   answerBox: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     backgroundColor: 'transparent',
-    paddingVertical: scale(15),
     borderRadius: moderateScale(43),
-    marginHorizontal: moderateScale(20),
+    marginHorizontal: moderateScale(25),
     borderWidth: 1,
-    borderColor: 'rgba(43, 43, 44, 0.3)',
-     width: '80%',
+    borderColor: 'rgba(116, 83, 113, 0.3)',
+    width:"80%",
+    alignItems: 'center',
+    height: verticalScale(50),
+    position: 'relative',
+  },
+ 
+  answerFill: {
+    position: 'absolute',
+    borderTopLeftRadius: scale(43),  
+    borderBottomLeftRadius: scale(43),
+    height: '100%', 
+     width: moderateScale(100),
+   
   },
   answer: {
     fontSize: 14,
     fontFamily: "Avenir-LT-Std-35-Light",
     textAlign: 'center',
-    color: 'white',
+    color: '#FFFFFF',
     flex: 1,
   },
- 
   overlayContent: {
     position: 'absolute',
     top: 0,
@@ -328,9 +366,9 @@ const styles = StyleSheet.create({
   userName: {
     color: 'white',
     fontSize: 16,
-
     fontFamily: "Avenir-LT-Std-85-Heavy"
   },
+  
   userId: {
     color: 'white',
     fontSize: 12,
